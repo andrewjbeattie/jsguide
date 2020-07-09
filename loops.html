@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Loops in Console - JavaScript Reference</title>
+    <link rel ="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/vs2015.min.css">
+    <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+<p>Open Console Log (Ctrl + Shift + K) to see the console output of the
+following JavaScript Code:</p>
+
+<pre><code>// while Loops
+
+var ourArray = [];
+    var i = 0;
+    while(i < 5) {
+    ourArray.push(i);
+    i++;
+    }
+    console.log(ourArray);
+
+    // for Loops
+
+    var ourArray1 = [];
+    for (var i = 0; i < 5; i++) {
+    ourArray1.push(i);
+    }
+    console.log(ourArray1);
+
+    // Iterate Odd Numbers With a For Loop
+
+    var ourArray2 = [];
+        for (var i = 0; i < 10; i += 2) {
+        ourArray2.push(i);
+        }
+        console.log(ourArray2)
+    
+// Count Backwards With a For Loop
+
+var ourArray3 = [];
+    for (var i = 10; i > 0; i -= 2) {
+    ourArray3.push(i);
+    }
+    console.log(ourArray3)
+
+// Iterate Through an Array with a For Loop
+
+var arr = [10, 9, 8, 7, 6];
+    for (var i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+    }
+
+// Nesting For Loops
+
+var arr1 = [
+    [1,2], [3,4], [5,6]
+    ];
+    for (var i=0; i < arr1.length; i++) {
+    for (var j=0; j < arr1[i].length; j++) {
+        console.log(arr1[i][j]);
+    }
+    }
+
+// do-while Loop
+
+var ourArray4 = [];
+    var i = 0;
+    do {
+        ourArray4.push(i);
+        i++;
+    } while (i < 5);
+    console.log(ourArray4);</code></pre>
+
+    <script src="/js/loops.js"></script>
+  </body>
+</html>
