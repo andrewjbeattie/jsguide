@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Guide to the JavaScript Language - by Andrew Beattie</title>
+    <link rel ="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/vs2015.min.css">
+    <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+<body>
+
+  <nav id="navbar">
+<header><a href="/">JS Reference Index</a></header>
+
+<ul>
+  <li><a class="nav-link" href="#introduction">Introduction</a></li>
+  <li><a class="nav-link" href="#js_operators">Operators</a></li>
+  <li><a class="nav-link" href="#js_variables">Variables</a></li>
+  <li><a class="nav-link" href="#js_properties_methods">Properties & Methods</a></li>
+  <li><a class="nav-link" href="#js_compound_assignment">Compound Assignment</a></li>
+  <li><a class="nav-link" href="#js_concatenation">Concatenation</a></li>
+  <li><a class="nav-link" href="#js_character_access">Character Access</a></li>
+  <li><a class="nav-link" href="#js_arrays">Arrays</a></li>
+  <li><a class="nav-link" href="#js_functions">Functions</a></li>
+  <li><a class="nav-link" href="#js_conditionals">Conditionals</a></li>
+  <li><a class="nav-link" href="#js_objects">Objects</a></li>
+  <li><a class="nav-link" href="#js_loops">Loops</a></li>
+  <li><a class="nav-link" href="#js_JSON">JSON</a></li>
+</ul>
+
+</nav>
+
+
+
+<main id="main-doc">
+  <a href="https://imgbb.com/"><img
+  src="https://i.ibb.co/31g0JwN/Java-Script-logo.png" alt="Java-Script-logo"
+  border="0" class="logo"></a>
+  <h1>Guide to the JavaScript Language</h1>
+  <p>Author: Andrew Beattie | GutHub Profile: <a
+  href="https://github.com/andrewjbeattie" target="_blank">andrewjbeattie</a></p>
+  <p>First Published: July 2020</p>
+  <p>Made with: HTML5, CSS3 and JavaScript (highlight.js)</p>
+<h2>Author's Note</h2>
+  <p>Early on in my studies to better understand the current technological
+  trends of the web, I realised that <em>the best way to learn is to
+  teach others</em>. This documentation (a work in progress) is the resultant application of my study and teaches the <b>JavaScript language</b>. It focuses mainly
+    on the fundamentals of the language, rather than any specific
+    standardized ECMA version or platform specific applications. This is because the
+    fundamentals rarely change and remain the same in every ECMAScript language
+    standards update. The
+    JavaScript language here
+    is approached in a beginner's mindset (my own) that assumes
+    the reader has no prior experience in Computer Science or Object Orientated
+  Programming (OOP).
+  <p>Most of the teaching material has been researched and adpated from a variety
+  of different sources and I would like to give credit here where
+  it is due to <em>FreeCodeCamp, JavaScript MDN
+  Mozilla, Wikipedia, W3 Schools, Dofactory</em> as well as a huge plethora of freely
+  available mobile apps and websites and highly regarded important book series such as <em>"You Don't Know
+  JavaScript"</em> (Kyle Simpson) and<em>"JavaScript for impatient programmers"</em> (Dr. Axel Rauschmayer) . It is imperative in your
+  journey into programming to not rely on any single source for
+  learning but to delve into all of them until you have a good grasp of the concepts, including and not limited to web and mobile app quizes that test
+  your understanding of the language as well as being able to apply your
+  knowledge by writing your own functional code. </p>
+      <p>All of the examples used in this documentation require the use of the
+      Developer Tools Console which is found in many popular browsers such as Chrome
+      and Firefox (Ctrl + Shift + K). Without use of the console the reader will
+      not be able to go very far in a true understanding of the JavaScript language in an
+      applied context nor will they be able to test his or her code.
+      It is highly recommended that readers become familiar with their browser
+      development tools console before delving any further into this
+      documentation. To test code examples here we will use the <code class="inline">console.log()</code>
+      <em>object call expression</em>.</p>
+      
+
+<section class="main-section" id="introduction">
+<header>Introduction</header>
+<article>
+  <h2>What is Javascript?</h2>
+  <p>"JavaScript is a <em><b>high-level</b></em>, <b><em>dynamic</em></b>, <em><b>untyped,</b></em>
+    <b><em>interpreted</em></b> programming language". (Source: <i>JavaScript:
+      The Definitive Guide</i>)</p>
+  <ul>
+    <li><i><b>High-level:</b></i> is a programming language with strong
+      abstraction from the details of the computer. In contrast to low-level
+      programming languages, it may use natural language elements, be easier
+      to use, or may automate (or even hide entirely) significant areas of
+      computing systems (e.g. memory management), making the process of
+      developing a program simpler and more understandable than when using a
+      lower-level language. The amount of abstraction provided defines how
+      "high-level" a programming language is.</li>
+    <li><i><em><b>Dynamic</b><b>:</b></em></i> is a class of high-level
+      programming languages, which at runtime execute many common programming
+      behaviours that static programming languages perform during compilation.
+      These behaviours could include an extension of the program, by adding
+      new code, by extending objects and definitions, or by modifying the type
+      system. Dynamic languages are frequently (but not always) referred to as
+      scripting languages, although that term in its narrowest sense refers to
+      languages specific to a given run-time environment.</li>
+    <li><i><b>Untyped: </b></i>languages, also known as loosely typed
+      languages, are programming languages that do not make you define the
+      type of a variable. JavaScript is an untyped language. This means that a
+      JavaScript variable can hold a value of any data type. You don’t have to
+      tell that a string is a string, nor you can require a function to
+      accepts an integer as its parameter. This gives JavaScript a lot of
+      flexibility. Flexibility lets you move faster, change things quickly,
+      iterate at a faster velocity.</li>
+    <li><i><b>Interpreted: </b></i>is a language where the standard language
+      runtime is able to take source code text as input and execute it.
+      JavaScript is by definition interpreted, even if the spec does not use
+      the exact word as there is no totally agreed upon definition of
+      'interpreted' versus 'compiled'. In the classic distinction, compiled
+      languages produce a stand-alone binary executable, while interpreted
+      languages requires a deployed runtime to execute the code. Virtual
+      machines, bytecode and so on blurs the distinction. </li>
+  </ul>
+
+  <p>JavaScript is high-level, often just-in-time compiled, and
+    multi-paradigm. It has curly-bracket syntax, dynamic typing,
+    prototype-based object-orientation, and first-class functions. Alongside
+    HTML and CSS, JavaScript is one of the core technologies of the World
+    Wide Web. JavaScript enables interactive web pages and is an essential
+    part of web applications. The vast majority of websites use it for
+    client-side page behavior, and all major web browsers have a dedicated
+    JavaScript engine to execute it. </p>
+    <p> It was introduced in
+      1995 by Netscape (created in 10 days by Brendan Eich), the company that
+      created the first browser by the same name. Other browsers followed, and
+      JavaScript quickly gained acceptance as the de-facto client-side
+      scripting language on the internet.</p>
+    <p>Initially in the very early days of the world wide web, many developers felt it was an inferior language because of its
+    perceived simplicity compared to more established strictly typed and compiled OOP languages such as C,
+    C#, C++ and even Java. Also, users would frequently disable JavaScript in
+    their browsers because of security concerns. However, over the last decade,
+    starting with the introduction of AJAX and the related Web 2.0 transition,
+    as well as server side JavaScript applications (Node.js) it became clear that JavaScript allows developers to build powerful and
+    highly responsive web  and mobile apps.</p>
+    <h2>Why learn JavaScript today?</h2>
+  <p>Today, JavaScript is <i>the</i> language of the Web and according to GitHut
+  in Q1 20202 is <em><strong>the
+  most popular programming language in the World</strong></em> (<a
+  href="https://madnight.github.io/githut/#/pull_requests/2020/1"
+  target="_blank">View Stats</a>).
+  JavaScript is used by millions of
+  websites and mobile apps to dynamically build webpages on the fly (SPA's), add
+  functionality and responsiveness, enable sites to work offline (PWA's),
+  communicate with multiple servers through API's, retrieve data (JSON) that is
+  locally stored in the browser, validate forms and much more. JavaScript engines were originally
+  used only in web browsers (e.g Google Chrome's V8 engine), but they
+    are now embedded in many servers, usually via Node.js. They are also
+    embedded in a variety of applications created with frameworks such as
+    Electron. Some popular desktop apps programmed almost entirely in JavaScript (Electron JS) include:</p>
+    <ul>
+      <li>Skype</li>
+      <li>WhatsApp</li>
+      <li>Instagram</li>
+      <li>Discord</li>
+      <li>Slack</li>
+      <li>VS Code</li>
+      <li>WordPress Desktop</li>
+    </ul>
+
+    <p>In addition many of the most popular front end development libraries and
+    frameworks are JavaScript based. Some of these popular frameworks in 2020
+    include:</p>
+    <ul>
+      <li>React JS</li>
+      <li>React Native</li>
+      <li>Vue JS</li>
+      <li>Angular</li>
+    </ul>
+    <p>One of the hottest most recent web development trends in 2020 includes the development of
+    static websites and apps with dynamic features following a JAMstack architecture based on
+    JavaScript, reusable API's and prebuilt markup allowing for extremely fast
+    apps with dynamic server side functions and features, without the security
+    and performance weaknesses of
+    databases and dedicated servers all whilst completely separating development
+    code from content production. Some of the most popular
+    SSG (Static Site Generators) in 2020 that are built on a JAMstack
+    architecture include:</p>
+    <ul>
+      <li>Gatsby JS</li>
+      <li>Next JS</li>
+      <li>Eleventy</li>
+      <li>Nuxt JS</li>
+    </ul>
+<p>Many people (myself included) have impatiently tried to dive into these popular
+libraries and frameworks, that are JavaScript based and
+abstracted to a higher level, without a good grasp of understanding the
+fundamentals on which they are built upon and what is often known amongst developers as <em>"Vanilla JavaScript"</em>. Whilst it is certainly possible to build basic apps
+in these frameworks by "copypasting" together pieces of someone else's code, it is impossible to go very far without knowing what you are doing and
+why you are doing it. As my mother always exclaimed to me: <em><b>Start as you
+mean to go on!!!</b></em></p>
+<p>So now you know why you should learn JavaScript let's get
+started...</p>
+  <h2>Code</h2>
+
+  <p>A program, often referred to as source code or just code, is a set
+    of special instructions to tell the computer what tasks to perform.
+    Usually code is saved in a text file, although with JavaScript you can
+    also type code directly into a developer console in a browser.</p>
+  <p>The rules for valid format and combinations of instructions is called a
+    computer language, sometimes referred to as its syntax, much the same as
+    English tells you how to spell words and how to create valid sentences
+    using words and punctuation.</p>
+  <h2>Statements</h2>
+  <p>In a computer language a <em>statement</em> is <em class="alert"><strong>a group of words, numbers, and operators that
+    performs a specific task</strong></em>. In JavaScript, a statement might
+    look as follows:</p>
+<pre><code class="javascript">a = b * 2;</code></pre>
+
+<p>The characters a and b are called <em>variables</em> (see “Variables”),
+  which are like simple boxes you can store any of your stuff in. In
+  programs, variables hold values (like the number 42) to be used by the
+  program. Think of them as symbolic placeholders for the values themselves.</p>
+<p>By contrast, the 2 is just a value itself, called a <em>literal value</em>,
+  because it stands alone without being stored in a variable.</p>
+<p>The = and * characters are <em>operators</em> (see “Operators”) – they
+  perform actions with the values and variables such as assignment and
+  mathematic multiplication.</p>
+<p>Most statements in JavaScript conclude with a semicolon (;) at the end.</p>
+<p>The statement <code class="inline">a = b * 2;</code> tells the computer, roughly, to
+  get the current value stored in the variable b, multiply that value by 2,
+  then store the result back into another variable we call <code class="inline">a</code>.</p>
+<p>Programs are just collections of many such statements, which together
+  describe all the steps that it takes to perform your program’s purpose.
+  </p>
+
+  <h2>Expressions</h2>
+  <p> Statements are made up of one or more <em>expressions</em>. An
+    expression is <em class="alert"><strong>any reference to a variable or value, or a set of
+    variable(s) and value(s) combined with operators</strong></em>.</p>
+  <p>For example:</p>
+  <pre><code class="javascript">a = b * 2;</code></pre>
+  <p>This statement has four expressions in it:</p>
+  <ul>
+    <li><code class="inline">2</code> is a <em>literal value expression</em></li>
+    <li><code class="inline">b</code> is a <em>variable expression</em>, which means to
+      retrieve its current value</li>
+    <li><code class="inline">b * 2</code> is an <em>arithmetic expression</em>, which means
+      to do the multiplication</li>
+    <li><code class="inline">a = b * 2</code> is an <em>assignment expression</em>, which
+      means to assign the result of the <code class="inline">b * 2</code> expression to the
+      variable <code class="inline">a</code></li>
+  </ul>
+  <p>A general expression that stands alone is also called an <em>expression
+      statement</em>, such as the following:</p>
+      <pre><code class="javascript">b * 2;</code></pre>
+  <p>This flavor of expression statement is not very common or useful, as
+    generally it wouldn’t have any effect on the running of the program – it
+    would retrieve the value of b and multiply it by <code class="inline">2</code>, but then
+    wouldn’t do anything with that result.</p>
+  <p>A more common expression statement is a call <i>expression
+      statement</i> (see “Functions”), as the entire statement is the function
+    call expression itself:</p>
+  <pre><code class="javascript">alert( a );</code></pre>
+
+
+
+
+</article>
+</section>
+
+<section class="main-section" id="js_operators">
+  <header>Operators</header>
+  <article>
+ 
+    <p> Operators are how we perform actions on variables and values. An
+      operator is a mathematical symbol which produces a result based on two
+      values (or variables). </p>
+      <p>There are four categories of operators in JavaScript:
+      <em><b>arithmetic, comparison, assignment</b></em> <em><b>and
+      logical.</b></em></p>
+     <h2>Arithmetic Operators</h2>
+     <p>In the table below, variable a has a value of 2 before the operation is applied.</p>
+  
+   <table class="table">
+    <tbody>
+      <tr>
+        <th style="width: 100px; text-align: left;">Operator</th>
+        <th style="width: 300px; text-align: left;">Operation</th>
+        <th style="width: 130px; text-align: left;">Expression</th>
+        <th style="width: 70px; text-align: left;">Result</th>
+      </tr>
+      <tr>
+        <td>+</td>
+        <td>Add</td>
+        <td>2 + a</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>-</td>
+        <td>Substract</td>
+        <td>2 - a</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>*</td>
+        <td>Multiply</td>
+        <td>3 * a</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>/</td>
+        <td>Divide</td>
+        <td>3 / a</td>
+        <td>1.5</td>
+      </tr>
+      <tr>
+        <td>%</td>
+        <td>Modulus - division remainder</td>
+        <td>7 % a</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>++</td>
+        <td>Increment - increase by 1</td>
+        <td>a++</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>--</td>
+        <td>Decrement - decrease by 1</td>
+        <td>a--</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+  </table>
+
+    <h3>Addition</h3>
+    <p>Add two numbers together or combine two strings.</p>
+    <p><code class="inline">6 + 9; 'Hello ' + 'world!';</code></p>
+    <pre><code>console.log(6 + 9); // should return 15
+console.log('Hello' + 'World'); // should return Hello World</code></pre>
+    <h3>Subtraction, Multiplication, Division</h3>
+    <p>These do what you'd expect them to do in basic math.</p>
+    <p><code class="inline">9 - 3; 8 * 2; 9 / 3;</code></p>
+    <pre><code>console.log(9 - 3); // Should return 6
+console.log(8 * 2); // Should return 16
+console.log(9 / 3); // Should return 3</code></pre>
+
+<h3>Modulus/Division Remainder</h3>
+<p>You can also use the remainder operator % which returns the division
+remainder.</p>
+<code class="inline">7 % 2; 6 % 2</code>
+<pre><code>console.log(7 % 2); // Should return 1
+console.log(6 % 2); //Should return 0 (no remainder)</code></pre>
+
+<p>The remainder operator is often used to check if a number is even or
+odd. That's because even numbers are numbers that have a remainder of 0 when
+divided by two.</p>
+<pre><code>function isEven(x){
+  return x % 2 === 0;
+}
+// returns true when x is even:
+console.log(isEven(4)); // true
+console.log(isEven(5)); // false
+console.log(isEven(6)); // true</code></pre>
+
+<pre><code>function isOdd(x){
+  return x % 2 != 0;
+}
+// returns true when x is odd:
+console.log(isOdd(4)); // false
+console.log(isOdd(5)); // true
+console.log(isOdd(6)); // false</code></pre>
+
+<h3>Increment & Decrement</h3>
+<p>The ++ operator increments a variable value by 1 and the -- decrements a
+variable value by 1.</p>
+
+<pre><code>var a = 5;
+a++
+console.log(a); // Should return 6
+a--
+console.log(a); 
+// Should return 5 (reassigned in first instance)</code></pre>
+
+<p>The increment and decrement operator can be used:</p>
+<ul>
+  <li>postfix <code class="inline">x--</code> returns the value before decrementing</li>
+  <li>prefix <code class="inline">--x</code> returns the value after decrementing</li>
+</ul>
+
+<pre><code>var level = 9;
+var preLevel = --level
+console.log(preLevel); // Should return 8
+
+var levels = 9
+var preLevels = levels--
+console.log(preLevels); // Should return a 9</code></pre>
+
+    <h2>Comparison Operators</h2>
+<p>Comparison operators compare the value of two operands. If the comparison is
+true, they return true, otherwise false. In the table below the variables are:
+<code class="inline">a = 1</code> and <code class="inline">b = 2</code>.</p>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th style="width: 100px; text-align: left;">Operator</th>
+          <th style="width: 300px; text-align: left;">Operation</th>
+          <th style="width: 130px; text-align: left;">Expression</th>
+          <th style="width: 70px; text-align: left;">Result</th>
+        </tr>
+        <tr>
+          <td>==</td>
+          <td>Equal to</td>
+          <td>a == b</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>!=</td>
+          <td>Not equal to</td>
+          <td>a != b</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>&lt;=</td>
+          <td>Less than equal to</td>
+          <td>a &lt;= b</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>&gt;=</td>
+          <td>Greater than or equal to</td>
+          <td>a &gt;= b</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>&lt;</td>
+          <td>Less than</td>
+          <td>a &lt; b</td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>&gt;</td>
+          <td>Greater than</td>
+          <td>a &gt; b</td>
+          <td>false</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Equal to</h3>
+    <p>This performs a test to see if two values are equal.
+      It returns a true/false (Boolean) result.</p>
+    <p><code class="inline">a == b; myVariable == 4;</code></p>
+    <pre><code>var a = 1;
+    b = 2;
+    console.log(a == b); // Should return false</code></pre>
+    <p>Strict equality (===) is the counterpart to the equality operator (==). However, unlike the equality operator, which attempts to convert both values being compared to a common type, the strict equality operator does not perform a type conversion.</p>
+    <p>If the values being compared have different types, they are considered
+    unequal, and the strict equality operator will return false. In this example, 3 is a Number type and '3' is a string type.</p></p>
+    
+    <pre><code>var nr = 3;
+    nq = '3';
+    console.log(nr == nq); // Should return false
+    console.log(nr === nq);  // Should return true</code></pre>
+    
+    <h3>Not equal to</h3>
+    <p>When "not" (!) is used alongside the Equality operator (==), the negation operator tests whether two values are not equal. </p>
+    <code class="inline">let myVariable = 3; myVariable !== 3; </code><br>
+    <pre><code>var tw = 5;
+    tr = '5';
+    console.log(tw != tr); // Should return false
+    console.log(tw !== tr); // Should return true</code></pre>
+  
+ <h3>Less than equal to</h3>
+ <p>The less than or equal to operator <code class="inline"><=</code> compares
+ the values of two numbers. If the number to the left is less than or equal to
+ the number to the right, it returns true. If the number on the left is greater
+ than the number on the right, it returns false. Like the equality operator,
+ less than or equal to converts data types and therefore is not considered
+ "strict" equality.</p>
+  <pre><code>var qu = 7;
+    qa = '7';
+    console.log(qu <= qa); // Should return true</code></pre>
+
+    <h3>Greater than equal to</h3>
+<p>The greater than or equal to operator <code class="inline">>=</code>compares the values of two
+numbers. If the number to the left is greater than or equal to the number to the
+right, it returns true. Otherwise, it returns false. Like the equality operator,
+greater than or equal to operator will convert data types while comparing is not
+considered strict equality.</p>
+<pre><code>var qu = 7;
+  qa = '7';
+  console.log(qu >= qa); // Should return true</code></pre>
+
+<h3>Less than</h3>
+<p>The less than operator <code class="inline"><</code> compares the values of
+two numbers. If the number to the left is less than the number to the right, it
+returns true. Otherwise, it returns false. Like the equality operator, less than
+operator converts data types while comparing and is not considered "strict".</p>
+<pre><code>console.log(qu < qa); // Should return false</code></pre>
+
+<h3>Greater than</h3>
+<p>The greater than operator (>) compares the values of two numbers. If the
+number to the left is greater than the number to the right, it returns true.
+Otherwise, it returns false. Like the equality operator, greater than operator
+will convert data types of values while comparing and is not considered
+"strict".</p>
+<pre><code>console.log(qu > qa); // Should return false</code></pre>
+
+  <h2>Assignment Operators</h2>
+  <p>In an assignment operation the value of a variable is computed from the
+  expression that lies to the right of an assignment operator. That value is
+  assigned to the variable or property that is on the left side of the operator.
+  In the table below the variables have the following values: </br>
+  <code class="inline">a = 1, b = 2, and c = 3</code>.</p>
+  
+  <table class="table">
+    <tr>
+        <th style="width:100px;text-align:left;">Operator</th>
+        <th style="width:300px;text-align:left;">Operation</th>
+        <th style="width:70px;text-align:left;">Result</th>
+    </tr>
+    <tr>
+        <td>=</td>
+        <td>a = b + c;</td>
+        <td>a = 5</td>
+    </tr>
+    <tr>
+        <td>+=</td>
+        <td>a += b; &nbsp;&nbsp;&nbsp;// equivalent to a = a + b</td>
+        <td>a = 3</td>
+    </tr>
+    <tr>
+        <td>-=</td>
+        <td>a -= b; &nbsp;&nbsp;&nbsp;// equivalent to a = a – b</td>
+        <td>a = -1</td>
+    </tr>
+    <tr>
+        <td>/=</td>
+        <td>a /= b; &nbsp;&nbsp;&nbsp;// equivalent to a = a / b</td>
+        <td>a = 0.5</td>
+    </tr>
+    <tr>
+        <td>%=</td>
+        <td>c %= b; &nbsp;&nbsp;// equivalent to c = c % b</td>
+        <td>c = 1</td>
+    </tr>
+    <tr>
+        <td>*=</td>
+        <td>a *= b; &nbsp;&nbsp;&nbsp;// equivalent to a = a * b</td>
+        <td>a = 2</td>
+    </tr>
+</table>
+
+<pre><code>var a1 = 1;
+    b1 = 2;
+    c1 = 3;
+    console.log(a1 = b1 + c1); 
+    // Should return 5 (a1 = b1 + c1)
+
+var a2 = 1;
+    b2 = 2;
+    c2 = 3;
+    console.log(a2 += b2); 
+    // Should return 3 (a2 = a2 + b2)
+
+var a3 = 1;
+    b3 = 2;
+    c3 = 3;
+    console.log(a3 -= b3); 
+    // Should return -1 (a3 = a3 - b3)
+
+var a4 = 1;
+    b4 = 2;
+    c4 = 3;
+    console.log(a4 /= b4); 
+    // Should return 0.5 (a4 = a4 / b3)
+
+var a5 = 1;
+    b5 = 2;
+    c5 = 3;
+    console.log(c5 %= b5); 
+    // Should return 1 (c5 = c5 % b5)
+
+var a6 = 1;
+    b6 = 2;
+    c6 = 3;
+    console.log(a6 *= b6); 
+    // Should return 2 (a6 = a6 * b6)</code></pre>
+
+<h2>Logical Operators</h2>
+  
+      <p>JavaScript provides three logical operators:</p>
+      <ul>
+        <li><code class="inline">!</code> (Logical NOT)</li>
+        <li><code class="inline">||</code> (Logical OR)</li>
+        <li><code class="inline">&amp;&amp;</code> (Logical AND) </li>
+      </ul>
+<p>In the table below the variables have the following values: <code class="inline">a = 1 and b = 2</code>.</p>
+      <table class="table">
+        <tr>
+            <th style="width:80px;text-align:left;">Operator</th>
+            <th style="width:300px;text-align:left;">Operation</th>
+            <th style="width:110px;text-align:left;">Expression</th>
+            <th style="width:110px;text-align:left;">Result</th>
+        </tr>
+        <tr>
+            <td>&&</td>
+            <td>Logical and. Returns true only if both its first and second operands are evaluated to true.</td>
+            <td>a < 3 && b > 5 </td>
+            <td>returns false as b > 5 is false</td>
+        </tr>
+        <tr>
+            <td>||</td>
+            <td>Logical or. Returns true if one of the two operands are evaluated to true, returns false if both are evaluated to true.</td>
+            <td>a < 3 || b > 5</td>
+            <td>returns true as a < 3 is true</td>
+        </tr>
+        <tr>
+            <td>!</td>
+            <td>Logical not. Unary operator that simply inverts the Boolean value of its operand.</td>
+            <td>!(b>5)</td>
+            <td>returns true</td>
+        </tr>
+    </table>
+
+      <h3>NOT</h3>
+      <p>The NOT <code class="inline">!</code> operator always returns the logically opposite value of what it
+      precedes. For "Not", the basic expression is always true, but the
+      comparison returns false because we negate it.</p>
+      <pre><code>console.log(!true); // returns false
+console.log(!false); // returns true
+console.log(Boolean(0)); // returns false
+console.log(!Boolean(0)) // returns true</code></pre>
+
+
+      <h3>AND</h3>
+      <p>The logical AND (<code class="inline">&amp;&amp;</code>) operator
+        (logical conjunction) for a set of operands is true if and only if all of
+        its operands are true. It is typically used with Boolean (logical) values.
+        When it is, it returns a Boolean value. However, the <code class="inline">&amp;&amp;</code>
+        operator actually returns the value of one of the specified operands, so
+        if this operator is used with non-Boolean values, it will return a
+        non-Boolean value.</p>
+      <p>AND - The result of the <code class="inline">&amp;&amp;</code> operator is
+        true only if both values are true, otherwise, it is false.</p>
+  
+      <pre><code>var at = 3;
+    bt = 6;
+    day1 = 'Monday';
+    day2 = 'Tuesday';
+    mt = 5;
+    pt = 5;
+    console.log(at > 0 && bt > 0); 
+    // Should return true
+    console.log(at > 2 && bt > 7); 
+    // Should return false
+    console.log(at == bt && day1 == day2); 
+    // Should return false
+    console.log(mt == pt && at == bt); 
+    // Should return false</code></pre>
+
+        <h3>OR</h3>
+        <p>JavaScript uses the double pipe <code class="inline">||</code> to
+          represent the logical OR operator. </p>
+        <p>You can apply the <code class="inline">||</code> operator to two
+        values of any type. Using the variables declared above:</p>
+        
+<pre><code>console.log(at > 2 || mt > 6); 
+// Should return true
+console.log(mt > 6 || bt < 3); 
+// Should return true
+console.log(at !== bt || mt !== pt); 
+// Should return true</code></pre>
+
+
+<p>> See these examples above <a href="operators.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+  </article>
+
+    </article>
+    </section>
+
+
+<section class="main-section" id="js_variables">
+<header>Variables</header>
+<article>
+  <p>In programs, variables hold values. Think of them as symbolic placeholders for the values themselves</p>
+
+  <h2>Values &amp; Types</h2>
+  <ul>
+    <li>When you need to do math, you want a number.</li>
+    <li>When you need to print a value on the screen, you need a string (one
+      or more characters, words, sentences).</li>
+    <li>When you need to make a decision in your program, you need a boolean
+      (true or false).</li>
+  </ul>
+  <p>Values that are included directly in the source code are called <i>literals</i>.
+    <i>string</i> literals are surrounded by double quotes <code class="inline">"..."</code>
+    or single quotes (<code class="inline">'...'</code>) – the only difference is stylistic
+    preference. <i>number</i> and <i>boolean</i> literals are just presented
+    as is (i.e., <code class="inline">42</code>, <code class="inline">true</code>, etc.).</p>
+  <p>There are 7 variable types in JavaScript: <em><b>String, Number, Boolean,
+  Array, Object, null</b></em> and <em><b>undefined</b>.</em></p>
+  <h2>String</h2>
+  <p>This is a sequence of text known as a string. To signify that the value
+    is a string, enclose it in single or double quote marks.</p>
+<pre><code>let myVariable = 'Bob';</code></pre>
+  
+<h2>Number</h2>
+<p>This is a number. Numbers don't have quotes around them. </p>
+<pre><code>let myVariable = 28;</code></pre>
+
+<h2>Boolean</h2>
+<p>This is a True/False value. The words true and false are special keywords that don't need quote marks. </p>
+<pre><code>let myVariable = true;</code></pre>
+
+<h2>Array</h2>
+<p>This is a structure that allows you to store multiple values in a single
+reference.</p>
+<pre><code>let myVariable = [1,'Bob','Steve',10];</code></pre>
+<p>Refer to each member of the array like this:</p>
+<pre><code class="javascript">myVariable[0], myVariable[1]</code></pre>
+<pre><code class="javascript">myVariable[0,1]</code></pre>
+
+<h2>Object</h2>
+<p>This can be anything. Everything in JavaScript is an object, and can be stored in a variable.</p>
+<pre><code>let myVariable = document.querySelector('h1');</code></pre>
+
+
+
+<h2>Null and Undefined</h2>
+<p>Both <i>null</i> and <i>undefined</i> can be regarded as a special
+  value that indicates "no value". </p>
+<p>The <i>null</i> is a language keyword (in fact, it is an object) which
+  is used to indicate the expected lack of value. On the other hand, <i>undefined</i>
+  is a predefined global variable that has a deeper meaning and is used to
+  indicate an error-like, unexpected lack of value.</p>
+<p>When your function has no return value, it returns undefined. If you
+  declare a variable and don't initialize it, it returns the undefined
+  value. If you query a non-existent array element or object property,
+  again an undefined is returned. Here is an example.</p>
+
+  <pre><code>var book;        
+console.log(book);          // => undefined
+console.log(typeof book);   // => undefined </code></pre>
+
+<p>If you want to indicate the 'lack of value' in your code, you typically use
+null rather than undefined.</p>
+
+<pre><code>var book = null;  
+console.log(book);          // => null
+console.log(typeof book);   // => object
+// (although null is not a true object)</code></pre>
+
+  <p class="alert"> <em><strong> All of the above 7 types of variables are
+  objects.</strong></em></p>
+
+<h2>Variable Declaration</h2>
+<p>You declare a variable with either:</p>
+<p>
+- <code class="inline"><b>var</b></code> (old way and less recommended as is legacy and
+mostly deprecated)<br>
+- <b><code class="inline">let</code> </b>(can be reassigned)<br>
+- <b><code class="inline">const</code> </b>(can't be initialised without a
+value)</p>
+
+<pre><code>var myVariable = "Hats";
+let myVariable = 42;
+const myVariable = false;
+</code></pre>
+
+
+<ul>
+<li>When you use a variable for the first time in JavaScript, you need to
+declare it with either <code class="inline">let</code> or <code class="inline">const</code>.</li>
+<li>Use <code class="inline">let</code> for variables that you will need to re-assign
+later on (as in change their value)</li>
+<li>Use <code class="inline">const</code> for variables that you won't need to re-assign
+later on.</li>
+<li>Variables declared with <code class="inline">const</code> are <strong>not</strong>
+a constant.</li>
+<li>Variables declared with <code class="inline">const</code> cannot be re-assigned so
+you cannot have the <code class="inline">=</code> next to that variable name after
+declaring it.</li>
+<li>If you see <code class="inline">var</code>, it's from the old version of JavaScript.
+You can convert it to <code class="inline">let</code> (sometimes <code class="inline">const</code>
+if the variable is not re-assigned).</li>
+</ul>
+<h2>Incrementation & Decrementation</h3>
+<p>Define a variable "<strong>count</strong>" inside the function <strong>defineVariable</strong>.
+Increment it and then return its value.</p>
+
+<pre><code>function defineVariable(){
+  //define a variable "count" with value 0
+  let count = 0;
+  //then increment it
+  count += 1;
+  //finally return it
+  return count;
+}</code></pre>
+
+<p>Notice how the variable is reassigned with "<code class="inline">let</code>". If
+  you use "<code class="inline">const</code>" to define variable the function won't work
+  because you cannot reassign it (cannot have the = sign next to that
+  variable after declaring it)</p>
+
+<p>You can easily increment or add one to a variable with the ++ operator.</p>
+
+<pre><code class="javascript">i++;</code></pre>
+
+<p>...is the equivalent of:</p>
+
+<pre><code class="javascript">i = i + 1;</code></pre>
+
+<p>Note: The entire line becomes i++;, eliminating the need for the equal
+sign. So instead of writing:</p>
+
+<pre><code>var myVar = 87;
+    myVar = myVar + 1;</code></pre>
+<p>You can write:</p>
+<pre><code>var myVar = 87;
+    myVar++;</code></pre>
+
+<p>For decrementation or decreasing a variable by one you use the -- operator.
+
+<pre><code class="javascript">i--;</code></pre>
+
+<p>...is the equivalent of:</p>
+
+<pre><code class="javascript">i = i - 1;</code></pre>
+
+<p>Note: The entire line becomes i--;, eliminating the need for the equal sign. So instead of writing:</p>
+
+<pre><code>var myVar = 87;
+    myVar = myVar - 1;</code></pre>
+  <p>You can write:</p>
+<pre><code>var myVar = 87;
+    myVar--;</code></pre>
+
+<h2>Converting a number variable into a string</h2>
+<p>The <code class="inline">toString()</code> method returns a string representing the
+specified Number object</p>
+
+<pre><code>var nr = 15
+nr.toString();
+console.log(nr.toString());
+</code></pre>
+
+<pre><code>function convertNumberToString(number){
+  return number.toString();
+}
+console.log(convertNumberToString(11));</code></pre>
+
+<h2>Converting a string variable to a number</h2>
+
+<p>The <code class="inline">parseInt()</code> function parses a string argument and returns an integer</p>
+<pre><code>function convertToInteger(str) {
+      return parseInt(str);
+}
+// should return a number
+console.log(convertToInteger("56"));
+// should return 56
+console.log(convertToInteger("56"));
+// should return 77
+console.log(convertToInteger("77"));
+// should return NaN
+console.log(convertToInteger("JamesBond"));
+</code></pre>
+
+<p>Note that the <code class="inline">Number</code> in the following in <code
+class="inline">Number.parseInt("97")</code> is an <code class="inline">Object</code> in
+JavaScript that contains methods related to numbers, and .parseInt() is one of
+them. It's a method that you call on Number to convert a string into a
+number.</p>
+
+<pre><code>function convertStringToNumber(string){
+  return Number.parseInt(string);
+}
+console.log(convertStringToNumber("97"));</code></pre>
+
+<p>> See these examples above <a href="variables.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+
+</article>
+</section>
+
+ 
+
+<section class="main-section" id="js_properties_methods">
+<header>Properties & Methods</header>
+<article>
+  <h3>The difference between properties and methods</h3>
+  <ul>
+    <li>Properties: information that an object has.</li>
+    <li>Methods: what an object can do.</li>
+  </ul>
+  <p> You have an instance (object) from a class named Vehicle.</p>
+  <ul>
+    <li>The vehicle has: Number Plate, Brand, Model, Color. <strong><i>Those
+          are properties</i></strong>.</li>
+    <li>The vehicle can: Turn On, Accelerate, Brake, Horn. <strong><em>Those
+          are methods</em></strong>.</li>
+  </ul>
+  <p> As you can see, Properties represent data about an object.<br>
+    And Methods represent actions associated with an object.</p>
+  <p><b>Syntax difference: </b></p>
+  <ul>
+    <li><em>Properties</em> Don't have parenthesis - <code class="inline">console.log(s.length);.</code></li>
+    <li><em>Methods</em> have parenthesis - <code class="inline">console.log(s.toUpperCase()); </code></li>
+  </ul>
+  <p><b>Very important: <em><strong><span class="alert">always use parenthesis () at end of calling a method!!!</span></strong></em></b></p>
+  <p>A method is a function with the difference that the method is called
+  on something. For example <code class="inline">.toUpperCase()</code> is a
+  method called on string.</p>
+  <p>First define the variable "s":</p>
+<pre><code>const s = 'Hello World';</code></pre>
+<p>Now we can get the property "length" (chars) from the variable "s" set above:</p>
+<pre><code class="javascript">console.log(s.length);</code></pre>
+<p>Here we change the variable "s" through the method "toUpperCase" to upper case:</p>
+<pre><code class="javascript">console.log(s.toUpperCase());</code></pre>
+<p>Here we change the variable "s" through the method to "toLowerCase" to lower case:</p>
+<pre><code class="javascript">console.log(s.toLowerCase());</code></pre>
+<p>Here we use the method "substring" to pull 5 characters out of the string variable "s":</p>
+<pre><code class="javascript">console.log(s.substring(0,5));</code></pre>
+<p>Here we use the method "substring" to pull 5 characters out of the string
+variable "s" and chain another method "toUpperCase" to return it as Upper
+case:</p>
+<pre><code class="javascript">console.log(s.substring(0,5).toUpperCase());</code></pre>
+
+<p>You can think about this challenge as 3 separate small challenges:</p>
+<ol>
+  <li>Get the first character and uppercase it</li>
+  <li>Get the rest of the string and lower case it</li>
+  <li>Merge these 2 strings together (the first character &amp; the rest
+    of the string)</li>
+</ol>
+
+<pre><code>function capitalize(word){
+  return word[0].toUpperCase() + word.substring(1).toLowerCase();
+}
+
+//sample usage
+console.log(capitalize("john")); //John
+console.log(capitalize("BRAVO")); //Bravo
+console.log(capitalize("BLAne")); //Blane
+</code></pre>
+
+
+<p>> See these examples above <a href="properties-methods.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+
+
+ <div class="w3-col l10 m12" id="main">
+      <h2>String Properties List</h2>
+      <table class="w3-table-all notranslate">
+        <tbody>
+          <tr>
+            <th style="width: 24%; text-align: left;">Property</th>
+            <th style="text-align: left;">Description</th>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_constructor_string.asp">constructor</a></td>
+            <td>Returns the string's constructor function</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_length_string.asp">length</a></td>
+            <td>Returns the length of a string</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_prototype_string.asp">prototype</a></td>
+            <td>Allows you to add properties and methods to an object</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>String Methods List</h2>
+      <table class="w3-table-all notranslate">
+        <tbody>
+          <tr>
+            <th style="width: 24%; text-align: left;">Method</th>
+            <th style="text-align: left;">Description</th>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_charat.asp">charAt()</a></td>
+            <td>Returns the character at the specified index (position)</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_charcodeat.asp">charCodeAt()</a></td>
+            <td>Returns the Unicode of the character at the specified index</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_concat_string.asp">concat()</a></td>
+            <td>Joins two or more strings, and returns a new joined strings</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_endswith.asp">endsWith()</a></td>
+            <td>Checks whether a string ends with specified string/characters</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_fromcharcode.asp">fromCharCode()</a></td>
+            <td>Converts Unicode values to characters</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_includes.asp">includes()</a></td>
+            <td>Checks whether a string contains the specified string/characters</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_indexof.asp">indexOf()</a></td>
+            <td>Returns the position of the first found occurrence of a
+              specified value in a string</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_lastindexof.asp">lastIndexOf()</a></td>
+            <td>Returns the position of the last found occurrence of a specified
+              value in a string</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_localecompare.asp">localeCompare()</a></td>
+            <td>Compares two strings in the current locale</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_match.asp">match()</a></td>
+            <td>Searches a string for a match against a regular expression, and
+              returns the matches</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_repeat.asp">repeat()</a></td>
+            <td>Returns a new string with a specified number of copies of an
+              existing string</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_replace.asp">replace()</a></td>
+            <td>Searches a string for a specified value, or a regular
+              expression, and returns a new string where the specified values
+              are replaced</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_search.asp">search()</a></td>
+            <td>Searches a string for a specified value, or regular expression,
+              and returns the position of the match</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_slice_string.asp">slice()</a></td>
+            <td>Extracts a part of a string and returns a new string</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_split.asp">split()</a></td>
+            <td>Splits a string into an array of substrings</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_startswith.asp">startsWith()</a></td>
+            <td>Checks whether a string begins with specified characters</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_substr.asp">substr()</a></td>
+            <td>Extracts the characters from a string, beginning at a specified
+              start position, and through the specified number of character</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_substring.asp">substring()</a></td>
+            <td>Extracts the characters from a string, between two specified
+              indices</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_tolocalelowercase.asp">toLocaleLowerCase()</a></td>
+            <td>Converts a string to lowercase letters, according to the host's
+              locale</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_tolocaleuppercase.asp">toLocaleUpperCase()</a></td>
+            <td>Converts a string to uppercase letters, according to the host's
+              locale</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_tolowercase.asp">toLowerCase()</a></td>
+            <td>Converts a string to lowercase letters</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_tostring_string.asp">toString()</a></td>
+            <td>Returns the value of a String object</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_touppercase.asp">toUpperCase()</a></td>
+            <td>Converts a string to uppercase letters</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_trim_string.asp">trim()</a></td>
+            <td>Removes whitespace from both ends of a string</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.w3schools.com/jsref/jsref_valueof_string.asp">valueOf()</a></td>
+            <td>Returns the primitive value of a String object</td>
+          </tr>
+        </tbody>
+      </table>
+
+</article>
+</section>
+
+<section class="main-section" id="js_compound_assignment">
+<header>Compound Assignment</header>
+<article>
+<p>In programming, it is common to use assignments to modify the contents of a variable. Remember that everything to the right of the equals sign is evaluated first, so we can say:</p>
+
+<pre><code class="javascript">myVar = myVar + 5;</code></pre>
+  
+<p>...to add 5 to myVar. Since this is such a common pattern, there are
+operators which do both a mathematical operation and assignment in one step. One
+such operator is the += operator.</p>
+
+<pre><code>var myVar = 1;
+  myVar += 5;
+  console.log(myVar); // Returns 6</code></pre>
+
+<p>Like the += operator, -= subtracts a number from a variable.</p>
+
+<pre><code class="javascript">myVar = myVar - 5;</code></pre>
+
+<p>...will subtract 5 from myVar. This can be rewritten as:</p>
+
+<pre><code class="javascript">myVar -= 5;</code></pre>
+
+<p>The *= operator multiplies a variable by a number.</p>
+
+<pre><code class="javascript">myVar = myVar * 5;</code></pre>
+
+<p>...will multiply myVar by 5. This can be rewritten as:</p>
+
+<pre><code class="javascript">myVar *= 5;</code></pre>
+
+<p>The /= operator divides a variable by another number.</p>
+
+<pre><code class="javascript">myVar = myVar / 5;</code></pre>
+
+<p>...will divide myVar by 5. This can be rewritten as:</p>
+
+<pre><code class="javascript">myVar /= 5;</code></pre>
+
+<p>> See these examples above <a href="compound-assignment.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+
+</article>
+</section>
+
+
+
+<section class="main-section" id="js_concatenation">
+  <header>Concatenation</header>
+  <article>
+    <p>Concatenation, in the context of programming, is the operation of
+      joining two strings together. The term"concatenation" literally means to
+      merge two things together. Also known as string concatenation. </p>
+    <p>First let's define the variables used in examples: </p>
+
+    <pre><code>const firstname = 'John';
+const realage = 30;</code></pre>
+      <h3>String Concatenatation with Plus Operator</h3>
+    <pre><code>console.log('My name is ' + firstname +  ' and I am ' + realage);</code></pre>
+    
+<h3>Concatenating Strings with the Plus Equals Operator</h3>
+<pre><code>var ourStr = "I come first. ";
+    ourStr += "I come second.";
+// ourStr is now "I come first. I come second."</code></pre>
+
+<h3>Constructing Strings with Variables</h3>
+
+<pre><code>var myName = "John Smith";
+var ourStr = "Hello, my name is " + myName + ", how are you?";
+// ourStr is now "Hello, our name is John Smith, how are you?"</code></pre>
+   
+<h3>Concatenating Strings with variables - the newest way</h3>
+    <p>With string concatenation you can use back-ticks and dollar signs and
+      curly braces:</p>
+    <pre><code>console.log(`My name is ${firstname} and I am ${realage}`)</code></pre>
+
+    <h2>Interpolation</h2>
+    <p>Template strings support interpolation! This means you could write a
+    variable in your string, and get its value. The syntax is straightforward,
+    you simply wrap your variable name with a dollar sign and curly braces.</p>
+
+    <pre><code>const hello = `My name is ${firstname} and I am ${realage}`
+console.log(hello);</code></pre>
+<p>Remember that string interpolation only works with backticks. If
+  you ever try it and it doesn't work, double-check that you're using
+  backticks rather than single or double-quotes.</p>
+    <pre><code>function sayHello(firstname){
+      return `Hello ${firstname}`;
+  }
+  
+  //sample usage
+  console.log(sayHello("John"));
+  
+  
+  function getFullName(firstName, lastName){
+      return `${firstName} ${lastName}`;
+  }
+  
+  //sample usage
+  console.log(getFullName("John", "Doe"));</code></pre>
+
+  <h3>Multiline strings</h3>
+    <pre><code>function getMultilineString() {
+//move "are so powerful!" to a new line in the same string
+return `Template strings  
+  are so powerful!`;
+}
+console.log(getMultilineString());</code></pre>
+
+      <p>> See these examples above <a href="concatenation.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+
+  </article>
+  </section>
+
+
+  <section class="main-section" id="js_character_access">
+    <header>Character Access</header>
+    <article>
+
+      <p>You can access a specific character in a string by using the square
+        brackets syntax [].</p>
+      <p>You have to provide the index of the character that you'd like to access,
+        starting from 0.</p>
+      <p>Let's take an example where the variable language has the value:
+        "JavaScript". Here's how you access the 1st character, the 2nd, and the
+        3rd:</p>
+
+<pre><code>var character = "Javascript"
+character[0]; //first character
+character[1]; //second character
+character[2]; //third character
+// Displays 's'
+console.log(character[4]);</code></pre>
+
+<p>In order to get the last letter of a string, subtract one from
+  the string's length.</p>
+<p>For example, if <code class="inline">var firstName = "Charles"</code>, you
+  can get the value of the last letter of the string by using <code class="inline">firstName[firstName.length - 1]</code> </p>
+
+    <pre><code>var firstName = "Charles";
+var lastChar = firstName[firstName.length - 1];
+// Displays "s"
+console.log(lastChar);</code></pre>
+
+<p>The same principle can be used to retrieve the last
+  character in a string to retrieve the Nth-to-last character.
+  For example, you can get the value of the third-to-last
+letter of the <code class="inline">var firstName = "Charles"</code> string by
+using <code class="inline">firstName[firstName.length - 3]</code></p>
+
+
+<pre><code>var thirdToLastChar = firstName[firstName.length - 3];
+// Displays 'l'
+console.log(thirdToLastChar); </code></pre>
+
+<p>You can also use the older (EMCA 1) method of <code
+class="inline">charAt</code> to retreive a character from a <code class="inline">string</code></p>
+
+<pre><code>var str = "HELLO WORLD";
+var res = str.charAt(0)
+// Displays 'H'
+console.log(res);</code></pre>
+
+
+<h3>Substrings</h3>
+<p>Substring signature<br>
+  <br>
+  A function signature gives you an explanation of the parameters that you
+  need to pass for that method. Let's take a look at the signature of
+  substring:<br>
+  <br>
+  <pre><code>//Signature:
+    substring(indexStart, indexEnd)</code></pre>
+  <p>
+  This means that when you call substring, you can give it 2 parameters, the
+  first one for the indexStart and the second one for indexEnd.</p>
+<p>
+  &nbsp;&nbsp;&nbsp; <code class="inline">indexStart:</code> the position of the first
+  character you'd like to include<br>
+  &nbsp;&nbsp;&nbsp; <code class="inline">indexEnd:</code> the position of the first
+  character you'd like to ignore</p>
+  <p>This means an indexEnd of 5, will only include up to character 4. The
+  combination of these 2 will give you a substring.</p>
+  
+<pre><code>var anyString = 'Mozilla';
+// Displays 'Mozil'
+console.log(anyString.substring(0, 5));
+console.log(anyString.substring(5, 0));</code></pre>
+
+
+<h3>Optional parameters</h3>
+<p>The <code class="inline">indexEnd</code> parameter is optional, which means you can simply pass the
+indexStart and it'll assume the <code class="inline">indexEnd</code> to be the
+same as the string length. Here's an example:</p>
+
+<pre><code>function skipFirstCharacter(name){
+  return name.substring(1);
+}
+console.log(skipFirstCharacter("Iamsterdam"));</code></pre>
+
+<h3>Bracket notation versus dot notation</h3>
+<p>The two most common ways to access properties in JavaScript are with a
+  dot and with square brackets. Both <code class="inline">value.x and value[x]</code>
+  access a property on value—but not necessarily the same property. <strong>The
+    difference is in how x is interpreted. When using a dot, the part after
+    the dot must be a valid variable name, and it directly names the
+    property. When using square brackets, the expression between the
+    brackets is evaluated to get the property name. Whereas value.x fetches
+    the property of value named “x”, value[x] tries to evaluate
+    the expression x and uses the result as the property name.</strong></p>
+
+    <pre><code>var foo = myForm.foo[]; // incorrect syntax
+var foo = myForm["foo[]"]; // correct syntax</code></pre>
+
+        <p>> See these examples above <a href="character-access.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+  
+    </article>
+    </section>
+
+
+    <section class="main-section" id="js_arrays">
+      <header>Arrays</header>
+      <article>
+  
+        <p>An array is a special variable, which can hold more than one value at a
+          time.</p>
+        <p>If you have a list of items (a list of car names, for example), storing
+          the cars in single variables could look like this:</p>
+<pre><code>var car1 = "Saab";
+var car2 = "Volvo";
+var car3 = "BMW";</code></pre>
+        <p>However, what if you want to loop through the cars and find a specific one? And what if you had not 3 cars, but 300?</p>
+        <p>The solution is an array!</p>
+        <p>An array can hold many values under a single name, and you can access
+        the values by referring to an index number.</p>
+        
+        <p>You start an array declaration with an opening square bracket, end it with a closing square bracket, and put a comma between each entry, like this:</p>
+
+<pre><code>var cars = ["Saab", "Volvo", "BMW"];</code></pre>
+
+<h2>Nesting Arrays</h2>
+
+<p>You can also nest arrays (multi dimensional array) within other arrays, like
+below:</p>
+
+<pre><code>var score = [["Bulls", 23], ["White Sox", 45]]</code></pre>
+
+<h2>Accessing Arrays with Indexes</h2>
+<p>We can access the data inside arrays using indexes. Array indexes are written in the same bracket notation that
+  strings use, except that instead of specifying a character, they are
+  specifying an entry in the array. Like strings, arrays use zero-based
+indexing, so the first element in an array has an index of <code
+class="inline">0</code>.</p>
+  <pre><code>var array = [50,60,70];
+array[0]; // equals 50
+var data = array[1];  // equals 60</code></pre>
+
+<h2>Modifying Arrays with Indexes</h2>
+
+<p>Unlike strings, the entries of arrays are mutable and can be changed
+freely.</p>
+
+<pre><code>var ourArray = [50,40,30];
+ourArray[0] = 15;
+// equals [15,40,30]</code></pre>
+
+<p>It is best practice not to leave any spaces between the array name and the
+square brackets, like <code class="inline">array [0]</code>, instead it should
+be written as <code class="inline">array[0]</code></p>
+
+<h2>Accessing Multi-Dimensional Arrays With Indexes</h2>
+
+<p>One way to think of a multi-dimensional array, is as an array of arrays. When
+you use brackets to access your array, the first set of brackets refers to the
+entries in the outer-most (the first level) array, and each additional pair of
+brackets refers to the next level of entries inside.</p>
+
+<pre><code>var arr = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9],
+  [[10,11,12], 13, 14]
+];
+arr[3]; // equals [[10,11,12], 13, 14]
+arr[3][0]; // equals [10,11,12]
+arr[3][0][1]; // equals 11</code></pre>
+
+<h2>Manipulating Arrays with push()</h2>
+
+<p>An easy way to append data to the end of an array is via the push() function.</p>
+
+<p><code class="inline">.push()</code> takes one or more parameters and "pushes" them onto the end of the array.</p>
+
+<pre><code>var arr1 = [1,2,3];
+arr1.push(4);
+// arr1 is now [1,2,3,4]
+console.log(arr1);
+  
+var arr2 = ["Stimpson", "J", "cat"];
+arr2.push(["happy", "joy"]);
+// arr2 now equals ["Stimpson", "J", "cat", ["happy", "joy"]]
+console.log(arr2);</code></pre>
+
+<h2>Manipulating Arrays with pop()</h2>
+
+<p>Another way to change the data in an array is with the <code class="inline">.pop()</code>
+  function.</p>
+<p><code class="inline">.pop()</code> is used to "pop" a value off of the end of an array.
+  We can store this "popped off" value by assigning it to a variable. In
+  other words, <code class="inline">.pop()</code> removes the last element from an array
+  and returns that element.</p>
+<p>Any type of entry can be "popped" off of an array - numbers, strings,
+  even nested arrays.</p> 
+
+  <pre><code>var threeArr = [1, 4, 6];
+var oneDown = threeArr.pop();
+console.log(oneDown); // Returns 6
+console.log(threeArr); // Returns [1, 4]</code></pre>
+
+<h2>Manipulating Arrays with shift()</h2>
+
+<p><code class="inline">pop()</code> always removes the last element of an array. What if
+  you want to remove the first?</p>
+<p>That's where <code class="inline">.shift()</code> comes in. It works just
+like <code class="inline">.pop()</code>,
+  except it removes the first element instead of the last.</p>
+
+<pre><code>var ourArray = ["Stimpson", "J", ["cat"]];
+var removedFromOurArray = ourArray.shift();
+// removedFromOurArray now equals "Stimpson"
+// and ourArray now equals ["J", ["cat"]].
+console.log(removedFromOurArray); // Returns "Stimpson"
+console.log(ourArray); // Returns ["J", ["cat"]]
+</code></pre>
+
+<h2>Manipulating Arrays with unshift()</h2>
+<p>Not only can you <code class="inline">shift</code> elements off of the beginning of
+  an array, you can also <code class="inline">unshift</code> elements to the beginning
+  of an array i.e. add elements in front of the array.</p>
+<p><code class="inline">.unshift()</code> works exactly like <code class="inline">.push()</code>, but
+  instead of adding the element at the end of the array, <code class="inline">unshift()</code>
+  adds the element at the beginning of the array.</p>
+
+  <pre><code>var ourArray = ["Stimpson", "J", "cat"];
+ourArray.shift(); // ourArray now equals ["J", "cat"]
+ourArray.unshift("Happy");
+// ourArray now equals ["Happy", "J", "cat"]
+console.log(ourArray); // Returns ["Happy", J", "cat"]</code></pre>
+
+<h2>Converting an Array into a string</h2>
+<p>The <code class="inline">join()</code> method joins all elements of an array
+(or an array like object) into a <code class="inline">string</code> and returns
+this string.</p>
+
+<pre><code>var colours = ["red", "blue", "green"];
+colours.join(" ")
+console.log(colours.join());</code></pre>
+
+<h2>Converting a string into an array</h2>
+<p>The <code class="inline">split()</code> method splits a <code class="inline">string</code>
+object into an array of strings by seperating the string and substrings, using a
+specified seperator string to determine where to make each split.</p>
+<pre><code>var codes = "js css html";
+codes.split(" ");
+console.log(codes.split());</code></pre>
+
+<h2>Getting the size of an array</h2>
+
+<pre><code>var arr = [1,5,10,16];
+console.log(arr.length); // Should return 4</code></pre>
+<h2>Accessing nested arrays</h2>
+<p>Array bracket notation can be chained to access nested arrays.</p>
+<pre><code>var ourPets = [
+  {
+    animalType: "cat",
+    names: [
+      "Meowzer",
+      "Fluffy",
+      "Kit-Cat"
+    ]
+  },
+  {
+    animalType: "dog",
+    names: [
+      "Spot",
+      "Bowser",
+      "Frankie"
+    ]
+  }
+];
+ourPets[0].names[1]; // "Fluffy"
+ourPets[1].names[0]; // "Spot"
+</code></pre>
+
+          <p>> See these examples above <a href="arrays.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+    
+      </article>
+      </section>
+
+      <section class="main-section" id="js_functions">
+        <header>Functions</header>
+        <article>
+          <p>In JavaScript, we can divide up our code into reusable parts called
+          functions. It's possible to define a body of code as a function that executes when you call
+          the function name in your code. This is a good alternative to repeatedly
+          writing the same code. You can call or invoke a function by using its name followed by
+            parentheses, like this: functionName(); Each time the function is called it will
+            print out the message "Hello World" on the dev console. All of the code between
+            the curly braces will be executed every time the function is called.</p>
+          <pre><code>function functionName() {
+console.log("Hello World");
+}</code></pre>
+<p>Parameters are variables that act as placeholders for the values that are to
+be input to a function when it is called. When a function is defined, it is
+typically defined along with one or more parameters. The actual values that are
+input (or "passed") into a function when it is called are known as arguments. In
+the following example
+the <code class="inline">x, y, z</code> are the <em>parameters</em> (symbolic variables) the function
+receives and the
+<code class="inline">5, 4, 5</code> are the <em>arguments</em> (real values) passed to the function.</p>
+<pre><code>function sum(x, y, z,) {
+  return x + y + z;
+}
+sum(5,4,5);</code></pre>
+
+<pre><code>function  functionWithArgs(x, y) {
+  console.log(x + y)
+}
+functionWithArgs(1,2);
+functionWithArgs(7,9);</code></pre>
+
+<h2>Global Scope and Local Scope Functions</h2>
+
+<p>In JavaScript, <dfn>scope</dfn> refers to the visibility of
+  variables. Variables which are defined outside of a function block have
+  <dfn>Global</dfn> scope. This means, they can be seen everywhere in your
+  JavaScript code.</p>
+<p>Variables which are used without the <code class="inline">var</code> keyword are
+  automatically created in the <code class="inline">global</code> scope.</p>
+  <p>A variable has global scope if it exists during the life of the program and
+  is accessible from anywhere in the program. A variable has function scope if
+  it is declared within a function and is not accessible outside of that
+  function and will cease to exist when the function finishes execution. With
+  function scope, the parameters and variables that you define as part of a
+  function are not available outside the function body; they are only visible
+  within the function throughout the lifetime of the function. Here are some
+  examples:</p>
+
+  <pre><code>var num = 1;          // variable is global
+function showGlobal() {
+console.log(num);         // uses the global num
+}
+showGlobal();         // => 1
+
+function showLocal(){
+var num = 2;        // num is local, hides the global num 
+console.log(num);
+}
+showLocal();           // => 2
+
+function showArgument(num) {
+console.log(num);       // arguments are locally scoped
+}
+showArgument(5);      // => 5</code></pre>
+
+<h2>Returning a value</h2>
+<p>We can pass values into a function with <dfn>arguments</dfn>. You can use
+  a <code class="inline">return</code> statement to send a value back out of a function.
+  In the example below<code class="inline"> plusThree</code> takes an <dfn>argument</dfn>
+  for <code class="inline">num</code> and returns a value equal to <code class="inline">num + 3</code>.</p>
+<pre><code>function plusThree(num) {
+return num + 3;
+}
+var answer = plusThree(5); // 8
+console.log(answer);</code></pre>
+
+<h2>Assignment with a Returned Value</h2>
+<p>When you store values with the Assignment Operator, everything to the right
+of the equal sign is resolved before the value is assigned. This means we can
+take the return value of a function and assign it to a variable.</p>
+
+<pre><code>var processed = 0;
+function processArg(num) {
+    return (num + 3) / 5;
+}
+processed = processArg(7); // Should equal 2
+console.log(processed); // Equals 2</code></pre>
+
+            <p>> See these examples above <a href="functions.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+      
+        </article>
+        </section>
+
+
+      <section class="main-section" id="js_conditionals">
+        <header>Conditionals</header>
+        <article>
+          <p>Conditionals are code structures used to test if an expression returns true or not. </p>
+    <p>There are 5 ways of writing a conditional statement in JavaScript:</p>
+    <ul>
+      <li>if statement</li>
+      <li>if...else statement</li>
+      <li>if...else if...else statement</li>
+      <li>switch statement</li>
+      <li>conditional (ternary) operator</li>
+    </ul>
+
+    <h2>if statement</h2>
+
+    <pre><code>function test (myCondition) {
+  if (myCondition) {
+    return "It was true";
+  }
+  return "It was false";
+}
+test(true);  // returns "It was true"
+test(false); // returns "It was false"</code></pre>
+
+<h2>if...else statement</h2>
+<p>The if-statement may contain an optional else clause that specifies an
+alternative course of action. The else clause is executed if the expression in
+the if-statement is evaluated to false.</p>
+<pre><code>function myFunction(num) {
+  if (num > 10) {
+    return "Bigger than 10";
+  } else {
+    return "10 or Less";
+  }
+  }
+  console.log(myFunction(15));</code></pre>
+  <h2>if…else if…else statement</h2>
+  <p>If you need to test multiple conditions then if…else if…else is what you
+  can use. If the condition associated with the if statement is true, the
+  statements inside the if block are executed. If the condition is false, each
+  else-if statement is evaluated in the order in which they appear. When a true
+  else-if condition is found, the statements inside that else-if block are
+  executed. If no else-if condition is evaluated to true, the statements inside
+  the else block are executed.</p>
+  <pre><code>function myFunction(num){
+if (num > 15) {
+  return "Bigger than 15";
+} else if (num < 5) {
+  return "Smaller than 5";
+} else {
+  return "Between 5 and 15";
+  }
+}
+console.log(myFunction(10));</code></pre>
+
+<h2>switch statement</h2>
+<p>If you have many options to choose from, use a switch statement. A switch
+statement tests a value and can have many case statements which define various
+possible values. Statements are executed from the first matched case value until
+a break is encountered.</p>
+<p>You can also specify a default case which is optional. It is similar to the else clause of an if statement and is executed when none of the cases match. There can only be one 'default' label for a switch statement. Although default is optional, it is recommended that you include it as it handles any unexpected cases. Here is an example:</p>
+
+<pre><code>var account = 3; 
+  switch (account) {
+     case 1:
+        console.log("Checking account");
+        break;
+     case 2:
+        console.log("Savings account");
+        break; 
+     case 3 :
+        console.log("Business account");
+        //  3 = Business account  
+        break;
+     default:
+        console.log("Invalid account code");
+        break;
+  }</code></pre>
+
+  
+<h2>Multiple identical options in switch statements</h2>
+
+<p>If the break statement is omitted from a switch statement's case, the
+following case statement(s) are executed until a break is encountered. If you
+have multiple inputs with the same output, you can represent them in a switch
+statement like this:</p>
+
+<pre><code>var val = 3;
+  switch(val) {
+    case 1:
+    case 2:
+    case 3:
+      result = "1, 2, or 3";
+      break;
+    case 4:
+      result = "4 alone";
+  }</code></pre>
+
+  <h2>Conditional (Ternary) Operator</h2>
+  <p>The <dfn>conditional operator</dfn>, also called the <dfn>ternary
+    operator</dfn>, can be used as a one line if-else expression.</p>
+<p>The syntax is:</p>
+<p><code class="inline">condition ? statement-if-true : statement-if-false;</code></p>
+<p>The following function uses an if-else statement to check a
+  condition:</p>
+<pre><code>function findGreater(a, b) {
+  if(a > b) {
+    return "a is greater";
+  }
+  else {
+    return "b is greater";
+  }
+}
+console.log(findGreater(1,2));
+</code></pre>
+<p>This can be re-written using the conditional (ternary) operator:</p>
+<pre><code>function findGreater(a, b) {
+  return a > b ? "a is greater" : "b is greater";
+}
+console.log(findGreater(1,2));</code></pre>
+
+<h2>Multiple Conditional (Ternary) Operators</h2>
+<p>It is considered best practice to format multiple conditional operators such
+that each condition is on a separate line.</p>
+
+<pre><code>function findGreaterOrEqual(a, b) {
+  return (a === b) ? "a and b are equal" 
+    : (a > b) ? "a is greater" 
+    : "b is greater";
+}
+console.log(findGreaterOrEqual(1,2));</code></pre>
+
+  <p>> See these examples above <a href="conditionals.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+      
+        </article>
+        </section>
+
+        <section class="main-section" id="js_objects">
+          <header>Objects</header>
+          <article>
+      <p>Objects are similar to <code class="inline">arrays</code>, except that
+      instead of using indexes to access and modify their data, you access the
+      data in objects through what are called <code
+      class="inline">properties</code>. The name of a property can be any string, including an empty string. The value can be any value, such as a string, Boolean, number, and null, but it cannot be undefined. The object's properties can be defined even after you start using the object. </p>
+<pre><code>var cat = {
+  "name": "Whiskers",
+  "legs": 4,
+  "tails": 1,
+  "enemies": ["Water", "Dogs"]
+};
+</code></pre>
+<h2>Accessing Object Properties with Dot Notation</h2>
+<p>There are two ways to access the properties of an object: dot notation (.)
+and bracket notation ([]), similar to an array. Dot notation is what you use
+when you know the name of the property you're trying to access ahead of
+time.</p>
+
+<pre><code>var myObj = {
+  prop1: "val1",
+  prop2: "val2"
+};
+var prop1val = myObj.prop1; // val1
+var prop2val = myObj.prop2; // val2
+console.log(myObj);</code></pre>
+<h2>Accessing Object Properties with Bracket Notation</h2>
+<p>The second way to access the properties of an object is bracket notation
+([]). If the property of the object you are trying to access has a space in its
+name, you will need to use bracket notation. However, you can still use bracket
+notation on object properties without spaces.</p>
+
+<pre><code>var myObj = {
+  "Space Name": "Kirk",
+  "More Space": "Spock",
+  "NoSpace": "USS Enterprise"
+};
+myObj["Space Name"]; // Kirk
+myObj['More Space']; // Spock
+myObj["NoSpace"];    // USS Enterprise</code></pre>
+<h2>Accessing Object Properties with Variables</h2>
+<p>Another use of bracket notation on objects is to access a property which is stored as the value of a variable. This can be very useful for iterating through an object's properties or when accessing a lookup table.</p>
+<pre><code>var dogs = {
+  Fido: "Mutt",  Hunter: "Doberman",  Snoopie: "Beagle"
+};
+var myDog = "Hunter";
+var myBreed = dogs[myDog];
+console.log(myBreed); // "Doberman"
+</code></pre>
+<h2>Updating Object Properties</h2>
+<p>After you've created a JavaScript object, you can update its properties at any time just like you would update any other variable. You can use either dot or bracket notation to update.</p>
+<pre><code>var ourDog = {
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"]
+};
+ourDog["name"] = "Happy Camper"; 
+// Replaces object's name property
+console.log(ourDog);</code></pre>
+
+<h2>Add New Properties to a JavaScript Object</h2>
+<p>You can add new properties to existing JavaScript objects the same way you
+would modify them.</p>
+<pre><code>var ourDog = {
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"]
+};
+
+ourDog.bark = "bow-wow";
+console.log(ourDog);</code></pre>
+
+<h2>Delete Properties from a JavaScript Object</h2>
+
+<p>We can also delete properties from objects like this:</p>
+<p><code>delete ourDog.bark;</code></p>
+
+<pre><code>var ourDog = {
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"],
+  "bark": "bow-wow"
+};
+
+delete ourDog.bark;
+console.log(ourDog);</code></pre>
+
+<h2>Using Objects for Lookups</h2>
+<p>Objects can be thought of as a key/value storage, like a dictionary. If
+  you have tabular data, you can use an object to "lookup" values rather
+  than a <code class="inline">switch</code> statement or an <code class="inline">if/else</code> chain.
+  This is most useful when you know that your input data is limited to a
+  certain range.</p>
+  <pre><code>var alpha = {
+    1:"Z",
+    2:"Y",
+    3:"X",
+    4:"W",
+    5:"V",
+    6:"U",
+    7:"T"
+  };
+  alpha[2]; // "Y"
+  alpha[7]; // "T"
+  
+  var value = 2;
+  alpha[value]; // "Y"</code></pre>
+  <h2>Testing Objects for Properties</h2>
+
+  <p>Sometimes it is useful to check if the property of a given object exists
+    or not. We can use the <code class="inline">.hasOwnProperty(propname)</code> method of
+    objects to determine if that object has the given property name. <code class="inline">.hasOwnProperty()</code>
+    returns <code class="inline">true</code> or <code class="inline">false</code> if the property is found
+    or not.</p>
+
+    <pre><code>var myObj = {
+      top: "hat",
+      bottom: "pants"
+    };
+    myObj.hasOwnProperty("top");    // true
+    myObj.hasOwnProperty("middle"); // false</code></pre>
+    <h2>Accessing Nested Objects</h2>
+    <p>The sub-properties of objects can be accessed by chaining together the
+    dot or bracket notation.</p>
+    <pre><code>var ourStorage = {
+      "desk": {
+        "drawer": "stapler"
+      },
+      "cabinet": {
+        "top drawer": { 
+          "folder1": "a file",
+          "folder2": "secrets"
+        },
+        "bottom drawer": "soda"
+      }
+    };
+    ourStorage.cabinet["top drawer"].folder2;  // "secrets"
+    ourStorage.desk.drawer; // "stapler"</code></pre>
+
+<p>> See these examples above <a href="objects.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+        
+          </article>
+          </section>
+
+          <section class="main-section" id="js_loops">
+            <header>Loops</header>
+            <article>
+        <h2>while Loops</h2>
+
+<p>JavaScript loops are used to repeatedly run a block of code - until a certain condition is met. When developers talk about iteration or iterating over, say, an array, it is the same as looping. JavaScript offers several options to repeatedly run a block of code, including while, do while, for and for-in. </p>
+<p>You can run the same code multiple times by using a loop. The first type of
+loop we will learn is called a while loop because it runs "while" a specified
+condition is true and stops once that condition is no longer true.</p>
+
+<pre><code>var ourArray = [];
+  var i = 0;
+  while(i < 5) {
+    ourArray.push(i);
+    i++;
+  }
+  console.log(ourArray);</code></pre>
+
+<h2>for Loops</h2>
+<p>The most common type of JavaScript loop is called a <code class="inline">for</code>
+  loop because it runs "for" a specific number of times. It consists of three parts, separated by semicolons. The first is
+  the <i>initializer</i> (<code class="inline">var i = 0</code>) which initializes the
+  loop and is executed only once at the start. The second is a <i>test
+    condition</i> (<code class="inline">i &lt; 5</code>). When a conditional expression
+  evaluates to true, the body of the loop is executed. When false, the loop
+  terminates. The third part is an <i>updater</i> (<code class="inline">i++</code>) which
+  is invoked after each iteration. The updater typically increments or
+  decrements the loop counter. In a for-loop, all three parts i.e. initializer, test condition, and
+  updater are written together in a single line (called an iteration
+  statement), whereas in a while, they're scattered and lie at different
+  places. This makes a for-loop more readable than a while-loop and as a
+  result, more easily maintainable: </p>
+  <p><code class="inline">for ([initializer]; [test condition]; [updater])</code></p>
+
+
+<p>In the following example we initialize with <code class="inline">i = 0</code> and
+  iterate while our test condition <code class="inline">i &lt; 5</code> is true. We'll
+  increment <code class="inline">i</code> by <code class="inline">1</code> in each loop iteration with
+  <code class="inline">i++</code> as our updated final-expression</code>.</p>
+<pre><code>var ourArray = [];
+  for (var i = 0; i < 5; i++) {
+    ourArray.push(i);
+  }
+  console.log(ourArray);</code></pre>
+
+  <h3>Iterate Odd Numbers With a For Loop</h3>
+  <p>For loops don't have to iterate one at a time. By changing our updater
+  final-expression, we can count by even numbers.</p>
+<p>We'll start at <code class="inline">i = 0</code> and loop while <code class="inline">i &lt; 10</code>.
+    We'll increment <code class="inline">i</code> by 2 each loop with <code class="inline">i += 2</code>.</p>
+
+    <pre><code>var ourArray = [];
+      for (var i = 0; i < 10; i += 2) {
+        ourArray.push(i);
+      }
+      console.log(ourArray)</code></pre>
+
+<h3>Count Backwards With a For Loop</h3>
+<p>A for loop can also count backwards, so long as we can define the
+  right conditions.</p>
+<p>In order to count backwards by twos, we'll need to change our <code
+class="inline">initializer</code>, <code class="inline">test condition</code>,
+  and <code class="inline">updater</code>.</p>
+<p>We'll start at <code class="inline">i = 10</code> and loop while <code class="inline">i &gt; 0</code>.
+We'll decrement <code class="inline">i</code> by 2 each loop with <code
+class="inline">i -= 2</code>.</p>
+  
+<pre><code>var ourArray = [];
+  for (var i = 10; i > 0; i -= 2) {
+    ourArray.push(i);
+  }
+  console.log(ourArray)</code></pre>
+
+  <h3>Iterate Through an Array with a For Loop</h3>
+  <p>A common task in JavaScript is to iterate through the contents of an
+    array. One way to do that is with a <code class="inline">for</code> loop. This code will
+    output each element of the array <code class="inline">arr</code> to the
+    console:</p>
+<pre><code>var arr = [10, 9, 8, 7, 6];
+  for (var i = 0; i < arr.length; i++) {
+     console.log(arr[i]);
+  }
+  </code></pre>
+
+  <h3>Nesting For Loops</h3>
+  <p>If you have a multi-dimensional array, you can use the same logic as the
+    prior waypoint to loop through both the array and any sub-arrays. Here is
+    an example which outputs each sub-element in <code class="inline">arr</code> one at a
+    time. Note that for the inner loop, we are checking the <code class="inline">.length</code>
+    of <code class="inline">arr[i]</code>, since <code class="inline">arr[i]</code> is itself an
+    array.</p>
+
+<pre><code>var arr = [
+  [1,2], [3,4], [5,6]
+];
+for (var i=0; i < arr.length; i++) {
+  for (var j=0; j < arr[i].length; j++) {
+    console.log(arr[i][j]);
+  }
+}
+</code></pre>
+
+<h2>do-while Loop</h2>
+<p>
+  It is called a do-while loop because it will first do one pass
+  of the code inside the loop no matter what, and then continue to run the
+  loop while the specified condition evaluates to
+      true. The block following do is executed
+  first and then the condition is evaluated. If the while condition is
+  true, the block is executed again and repeats until the condition
+  becomes false. This is known as a <i>post-test loop</i> as the
+  condition is evaluated after the block has executed. The
+  do-while loop is executed at least once whereas the while loop may not
+  execute at all. The do-while is typically used in a situation where the
+  body of a loop contains a statement that generates a value that you want
+  to use in your conditional expression.</p>
+
+  <pre><code>var ourArray = [];
+    var i = 0;
+    do {
+      ourArray.push(i);
+      i++;
+    } while (i < 5);
+    console.log(ourArray);</code></pre>
+
+
+
+
+                <p>> See these examples above <a href="loops.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
+          
+            </article>
+            </section>
+
+
+          <section class="main-section" id="js_JSON">
+            <header>JSON</header>
+            <article>
+        <h2>What is JSON</h2>
+<p>JSON stands for <dfn>JavaScript Object Notation</dfn>. It is an open, text-based format designed for lightweight data exchange between different systems. JSON is a subset of JavaScript's object literal notation representing simple data structures and objects. The array elements and object member values in JSON are limited to numbers, strings, Boolean values, objects, arrays, and null. This is different from JavaScript object literals where values of array elements and object members can be any JavaScript expression, including function definitions.</p>
+        <p>The beauty of JSON standard lies in its simplicity and the fact that
+        it is very compact. Here is a JSON representation of a student object.</p>
+        <pre><code>{
+  "firstName": "Kim", 
+  "lastName": "Taylor",
+  "studentCode": 7
+}</code></pre>
+<p>JSON objects can be nested. Below is a student including its image, which is
+an object itself: </p>
+<pre><code>{
+  "firstName": "Kim", 
+  "lastName": "Taylor",
+  "studentCode": 7,
+  "image":
+   {
+       "url": "images/007.jpg",
+       "width": 150,
+       "height": 150
+   }
+}</code></pre>
+
+<h2>JSON.parse() and JSON.stringify()</h2>
+
+
+
+            </article>
+            </section>
+  
+
+</main>
+
+</body>
+
+</html>
