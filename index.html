@@ -29,8 +29,17 @@
   <li><a class="nav-link" href="#js_objects">Objects</a></li>
   <li><a class="nav-link" href="#js_loops">Loops</a></li>
   <li><a class="nav-link" href="#js_JSON">JSON</a></li>
+  <li><a class="nav-link" href="#js_variable_scope">Variable Scope</a></li>
+  <li><a class="nav-link" href="#js_arrow_functions">Arrow Functions</a></li>
+  <li><a class="nav-link" href="#js_modules">JavaScript Modules</a></li>
+  <!--
+  <li><a class="nav-link" href="#js_arrow_functions">Rest Parameter/Spread Operator</a></li>
+  <li><a class="nav-link" href="#js_arrow_functions">Destructuring Assignment</a></li>
+  <li><a class="nav-link" href="#js_arrow_functions">Literals</a></li>
+  <li><a class="nav-link" href="#js_arrow_functions">Constructor Functions</a></li>
+  <li><a class="nav-link" href="#js_arrow_functions">JavaScript Promises</a></li>
+  -->
 </ul>
-
 </nav>
 
 
@@ -2029,14 +2038,315 @@ an object itself: </p>
        "height": 150
    }
 }</code></pre>
-
-<h2>JSON.parse() and JSON.stringify()</h2>
-
-
-
             </article>
             </section>
   
+
+            <section class="main-section" id="js_variable_scope">
+              <header>Variable Scope</header>
+              <article>
+                <h2>Comparing Scopes</h2>
+
+<p>When you declare a variable with the <code class="inline">var</code> keyword, it is
+  declared globally, or locally if declared inside a function. The <code class="inline">let</code> keyword behaves similarly, but with some extra
+  features. When you declare a variable with the <code class="inline">let</code> keyword
+  inside a block, statement, or expression, its scope is limited to that
+  block, statement, or expression.</p>
+<p>For example:</p>
+
+<pre><code>var numArray = [];
+  for (var i = 0; i < 3; i++) {
+    numArray.push(i);
+  }
+  console.log(numArray);
+  // returns [0, 1, 2]
+  console.log(i);
+  // returns 3</code></pre>
+
+  <p>
+    With the <code class="inline">var</code> keyword, <code class="inline">i</code> is declared globally.
+    So when <code class="inline">i++</code> is executed, it updates the global variable.
+    This code is similar to the following:</p>
+  
+  <pre><code>var numArray = [];
+    var i;
+    for (i = 0; i < 3; i++) {
+      numArray.push(i);
+    }
+    console.log(numArray);
+    // returns [0, 1, 2]
+    console.log(i);
+    // returns 3</code></pre>
+    <p>
+      This behavior will cause problems if you were to create a function and
+      store it for later use inside a for loop that uses the <code class="inline">i</code>
+      variable. This is because the stored function will always refer to the
+      value of the updated global <code class="inline">i</code> variable.</p>
+
+<pre><code>var printNumTwo;
+  for (var i = 0; i < 3; i++) {
+    if (i === 2) {
+      printNumTwo = function() {
+        return i;
+      };
+    }
+  }
+  console.log(printNumTwo());
+  // returns 3</code></pre>
+
+  <p>As you can see, <code class="inline">printNumTwo()</code> prints 3 and not 2. This is
+  because the value assigned to <code class="inline">i</code> was updated and
+  the <code class="inline">printNumTwo()</code>
+    returns the global <code class="inline">i</code> and not the value <code class="inline">i</code> had
+    when the function was created in the for loop. The <code class="inline">let</code>
+    keyword does not follow this behavior:</p>
+
+<pre><code>'use strict';
+  let printNumTwo;
+  for (let i = 0; i < 3; i++) {
+    if (i === 2) {
+      printNumTwo = function() {
+        return i;
+      };
+    }
+  }
+  console.log(printNumTwo());
+  // returns 2
+  console.log(i);
+  // returns "i is not defined"</code></pre>
+
+  <p><code class="inline">i</code> is not defined because it was not declared in the
+    global scope. It is only declared within the for loop statement. <code class="inline">printNumTwo()</code>
+    returned the correct value because three different <code class="inline">i</code>
+    variables with unique values (0, 1, and 2) were created by the <code class="inline">let</code>
+    keyword within the loop statement.</p>
+
+    <h2>Declaring read only variables with const</h2>
+
+    <p><code class="inline">const</code> has all the features that <code class="inline">let</code> has,
+      with the added bonus that variables declared using <code class="inline">const</code> are
+      read-only. They are a constant value, which means that once a variable is
+      assigned with <code class="inline">const</code>, it cannot be reassigned.</p>
+
+    <pre><code>"use strict";
+      const FAV_PET = "Cats";
+      FAV_PET = "Dogs"; // returns error</code></pre>
+
+      <p>As you can see, trying to reassign a variable declared with <code class="inline">const</code>
+        will throw an error. You should always name variables you don't want to
+        reassign using the <code class="inline">const</code> keyword. This helps when you
+        accidentally attempt to reassign a variable that is meant to stay
+        constant. A common practice when naming constants is to use all
+        uppercase letters, with words separated by an underscore.</p>
+      <p><strong>Note:</strong> It is common for developers to use uppercase
+        variable identifiers for immutable values and lowercase or camelCase for
+        mutable values (objects and arrays). </p>
+<h3>Mutating objects with const</h3>
+<p>The <code class="inline">const</code> declaration has many use cases in modern
+  JavaScript. Some developers prefer to assign all their variables using <code class="inline">const</code>
+  by default, unless they know they will need to reassign the value. Only
+  in that case, they use <code class="inline">let</code>. However, it is important to
+  understand that objects (including arrays and functions) assigned to a
+  variable using <code class="inline">const</code> are still mutable. Using the <code class="inline">const</code>
+  declaration only prevents reassignment of the variable
+  identifier.</p>
+
+  <pre><code>"use strict";
+    const s = [5, 6, 7];
+    s = [1, 2, 3]; // throws error, trying to assign a const
+    s[2] = 45; // works just as it would with an array declared with var or let
+    console.log(s); // returns [5, 6, 45]</code></pre>
+
+    <p>As you can see, you can mutate the object <code class="inline">[5, 6, 7]</code> itself
+    and the variable <code class="inline">s</code> will still point to the
+    altered array <code class="inline">[5, 6, 45]</code>. Like all arrays, the array elements in <code class="inline">s</code>
+      are mutable, but because <code class="inline">const</code> was used, you cannot use the
+      variable identifier <code class="inline">s</code> to point to a different array using
+      the assignment operator.</p>
+<h3>Preventing object mutation</h3>
+
+<p>The <code class="inline">const</code> declaration alone doesn't
+really protect the data
+  from mutation. To ensure data doesn't change, JavaScript provides a
+  function <code class="inline">Object.freeze</code> to prevent data mutation. Once the object is frozen, you can no longer add, update, or delete
+  properties from it. Any attempt at changing the object will be rejected
+  without an error.</p>
+
+<pre><code>let obj = {
+  name:"FreeCodeCamp",
+  review:"Awesome"
+};
+Object.freeze(obj);
+obj.review = "bad"; // will be ignored. Mutation not allowed
+obj.newProp = "Test"; // will be ignored. Mutation not allowed
+console.log(obj); 
+// { name: "FreeCodeCamp", review:"Awesome"}</code></pre>
+
+              </article>
+              </section>
+
+
+
+<section class="main-section" id="js_arrow_functions">
+<header>Arrow Functions</header>
+<article>
+
+<p>In JavaScript, we often don't need to name our functions,
+especially when passing a function as an argument to another function.
+Instead, we create inline functions. We don't need to name these
+functions because we do not reuse them anywhere else.</p>
+<p>To achieve this, we often use the following syntax:</p>
+
+<pre><code>const myFunc = function() {
+  const myVar = "value";
+  return myVar;
+}</code></pre>
+
+<p>ES6 allows us to not have to write anonymous functions this way. Instead, you
+can use arrow function syntax:</p>
+
+<pre><code>const myFunc = () => {
+  const myVar = "value";
+  return myVar;
+}</code></pre>
+
+<p>When there is no function body, and only a return value, arrow function
+  syntax allows you to omit the keyword <code class="inline">return</code> as well as the
+  brackets surrounding the code. This helps simplify smaller functions into
+  one-line statements:</p>
+
+  <pre><code>const myFunc = () => "value";</code></pre>
+<p>This code will still return value by default.</p>
+
+
+<h2>Arrow Functions with Parameters</h2>
+
+<p>Just like a regular function, you can pass arguments into an arrow
+function.</p>
+
+<pre><code>// doubles input value and returns it
+  const doubler = (item) => item * 2;</code></pre>
+
+<p>If an arrow function has a single argument, the parentheses enclosing the
+argument may be omitted.</p>
+
+<pre><code>// the same function, without the argument parentheses
+  const doubler = item => item * 2;</code></pre>
+
+<p>It is possible to pass more than one argument into an arrow function.</p>
+
+<pre><code>// multiplies the first input value by the second and returns it
+  const multiplier = (item, multi) => item * multi;</code></pre>
+
+<h2>Setting default parameters</h2>
+<p>In order to help us create more flexible functions, ES6 introduces <dfn>default
+  parameters</dfn> for functions. The default parameter kicks in when the
+argument is not specified (it is undefined). In the example below, the
+parameter <code class="inline">name</code> will receive its default value <code class="inline">"Anonymous"</code>
+when you do not provide a value for the parameter. You can add
+default values for as many parameters as you want.</p>
+
+<pre><code>const greeting = (name = "Anonymous") => "Hello " + name;
+
+  console.log(greeting("John")); // Hello John
+  console.log(greeting()); // Hello Anonymous</code></pre>
+
+</article>
+</section>
+
+
+<section class="main-section" id="js_modules">
+  <header>JavaScript Modules</header>
+  <article>
+<p>In order to make JavaScript more modular, clean, and
+  maintainable; ES6 introduced a way to easily share code among JavaScript
+  files. This involves exporting parts of a file for use in one or more
+  other files, and importing the parts you need, where you need them. In
+  order to take advantage of this functionality, you need to create a script
+  in your HTML document with a type of <code class="inline">module</code>. Here’s an
+  example:</p>
+
+  <pre><code class="html">&lt;script type="module" src="filename.js"&gt;&lt;/script&gt</code></pre>
+
+  <p>A script that uses this <code class="inline">module</code> type can now
+  use the <code class="inline" >import</code>
+    and <code class="inline">export</code> features of ES6.</p>
+
+<h2>Using export to Share a Code Block</h2>
+<p>Imagine a file called <code class="inline">math_functions.js</code> that contains
+  several functions related to mathematical operations. One of them is
+  stored in a variable, <code class="inline">add</code>, that takes in two numbers and
+  returns their sum. You want to use this function in several different
+  JavaScript files. In order to share it with these other files, you first
+  need to <code class="inline">export</code> it.</p>
+
+<pre><code>export const add = (x, y) => {
+  return x + y;
+}</code></pre>
+
+<p>The above is a common way to export a single function, but you can achieve
+the same thing like this:</p>
+
+<pre><code>const add = (x, y) => {
+  return x + y;
+}
+
+export { add };</code></pre>
+
+<p>When you export a variable or function, you can import it in another file and
+use it without having to rewrite the code. You can export multiple things by
+repeating the first example for each thing you want to export, or by placing
+them all in the export statement of the second example, like this:</p>
+
+<pre><code>export { add, subtract };</code></pre>
+
+<h2>Using import to reuse JavaScript</h2>
+
+<p><code class="inline">import</code> allows you to choose which parts of a file or module
+  to load. In the previous lesson, the examples exported <code class="inline">add</code>
+  from the <code class="inline">math_functions.js</code> file. Here's how you can
+  import it to use in another file:</p>
+
+  <pre><code>import { add } from './math_functions.js';</code></pre>
+
+  <p>Here, <code class="inline">import</code> will find <code
+  class="inline">add</code> in <code class="inline" >math_functions.js</code>,
+    import just that function for you to use, and ignore the rest. The <code class="inline">./</code>
+    tells the import to look for the <code class="inline">math_functions.js</code> file in
+    the same folder as the current file. The relative file path (<code class="inline">./</code>)
+    and file extension (<code class="inline">.js</code>) are required when using import in
+    this way.</p>
+
+<p>You can import more than one item from the file by adding them in
+      the <code class="inline">import</code> statement like this:</p>
+
+<pre><code>import { add, subtract } from './math_functions.js';</code></pre>
+
+<h2>Using * to Import Everything from a File</h2>
+
+<p>Suppose you have a file and you wish to import all of its contents
+  into the current file. This can be done with the <code class="inline">import * as</code>
+  syntax. Here's an example where the contents of a file named <code class="inline">math_functions.js</code>
+  are imported into a file in the same directory:</p>
+
+  <pre><code>import * as myMathModule from "./math_functions.js";</code></pre>
+
+  <p>The above <code class="inline">import</code> statement will create an object called <code class="inline">myMathModule</code>.
+    This is just a variable name, you can name it anything. The object will
+    contain all of the exports from <code class="inline">math_functions.js</code> in it, so
+    you can access the functions like you would any other object property.
+    Here's how you can use the <code class="inline">add</code> and <code class="inline">subtract</code>
+    functions that were imported:</p>
+
+    <pre><code>myMathModule.add(2,3);
+myMathModule.subtract(5,3);</code></pre>
+
+
+
+  </article>
+  </section>
+
+
 
 </main>
 
