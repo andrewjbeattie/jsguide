@@ -32,6 +32,8 @@
   <li><a class="nav-link" href="#js_variable_scope">Variable Scope</a></li>
   <li><a class="nav-link" href="#js_arrow_functions">Arrow Functions</a></li>
   <li><a class="nav-link" href="#js_modules">JavaScript Modules</a></li>
+  <li><a class="nav-link" href="#js_oop">OOP</a></li>
+  <li><a class="nav-link" href="#js_prototypes">Properties & Prototypes</a></li>
   <!--
   <li><a class="nav-link" href="#js_arrow_functions">Rest Parameter/Spread Operator</a></li>
   <li><a class="nav-link" href="#js_arrow_functions">Destructuring Assignment</a></li>
@@ -950,6 +952,23 @@ console.log(capitalize("john")); //John
 console.log(capitalize("BRAVO")); //Bravo
 console.log(capitalize("BLAne")); //Blane
 </code></pre>
+
+<pre><code>/* Aim: Create a js function that turns a word into a tautonym 
+  (this term for a word or name made up of two identical parts, such as 
+  so-so, tomtom, bungabunga or Pago Pago, WaggaWagga).*/
+
+  function myTautonym(word) { 
+  // repeat the string variable "word" twice and intialise it into a variable called "repeat"
+  var repeat = word.repeat(2) 
+  //  make the first character  of string variable "repeat" uppercase 
+  // and the rest of the characters lowercase and return the string
+   return repeat[0].toUpperCase() + repeat.substring(1).toLowerCase(); 
+  }
+  
+  myTautonym("ta") // Returns "Tata"
+  myTautonym("Ta") // Returns "Tata"
+  myTautonym("bunga") // Returns "Bungabunga"
+  myTautonym("Java") // Returns "Javajava"</code></pre>
 
 
 <p>> See these examples above <a href="properties-methods.html" target="_blank">output in console</a> <em>(opens in new window)</em></p>
@@ -2346,6 +2365,361 @@ myMathModule.subtract(5,3);</code></pre>
   </article>
   </section>
 
+
+
+  <section class="main-section" id="js_oop">
+    <header>Object Orientated Programming</header>
+    <article>
+<p>Object oriented programming organizes code into object definitions. These are sometimes called classes, and they group together data with related behavior. The data is an object's attributes, and the behavior (or functions) are methods.</p>
+<p>The object structure makes it flexible within a program. Objects can transfer information by calling and passing data to another object's methods. Also, new classes can receive, or inherit, all the features from a base or parent class. This helps to reduce repeated code.</p>
+<p>In the previous objects section we talked about creating basic JavaScript
+objects and how to access the properties of those objects using dot and bracket
+notation and how to update them. Here I will reiterate over them again before
+delving into more advanced topics of Objects.</p>
+
+<h2>Create a Basic JavaScript Object</h2>
+<pre><code>let duck = {
+  name: "Aflac",
+  numLegs: 2
+};</code></pre>
+
+<h2>Use Dot Notation to Access the Properties of an Object</h2>
+<pre><code>let duck = {
+  name: "Aflac",
+  numLegs: 2
+};
+console.log(duck.name);
+// This prints "Aflac" to the console
+</code></pre>
+
+
+<h2>Create a Method on an Object</h2>
+<p>Objects can have a special type of property, called a <dfn>method</dfn>.</p>
+<p>Methods are properties that are functions. This adds different behavior
+  to an object. Here is the <code class="inline">duck</code> example with a
+  method:</p>
+<pre><code>let duck = {
+  name: "Aflac",
+  numLegs: 2,
+  sayName: function() {return "The name of this duck is " + duck.name + ".";}
+};
+duck.sayName();
+// Returns "The name of this duck is Aflac."
+</code></pre>
+
+
+<h2>Make Code More Reusable with the <code class="inline">this</code> Keyword</h2>
+<p> If a variable name changes, any code referencing the original name
+  would need to be updated as well. In a short object definition, it isn't a
+  problem, but if an object has many references to its properties there is a
+  greater chance for error.</p>
+<p>A way to avoid these issues is with the <code class="inline">this</code>
+keyword. In the current context, <code class="inline">this</code> refers to the object that the
+  method is associated with: <code class="inline">duck</code>.
+  If the object's name is changed to <code class="inline">mallard</code>, it is not
+  necessary to find all the references to <code class="inline">duck</code> in the code. It
+  makes the code reusable and easier to read:</p>
+<pre><code>let duck = {
+  name: "Aflac",
+  numLegs: 2,
+  sayName: function() {return "The name of this duck is " + this.name + ".";}
+};</code></pre>
+
+
+<h2>Constructor Functions</h2>
+<p><dfn>Constructors</dfn> are functions that create new objects. They
+  define properties and behaviors that will belong to the new object.
+  Think of them as a blueprint for the creation of new objects.</p>
+<p>Here is an example of a constructor:</p>
+<pre><code>function Bird() {
+  this.name = "Albert";
+  this.color = "blue";
+  this.numLegs = 2;
+}</code></pre>
+
+<p>Constructors follow a few conventions:</p>
+<ul>
+  <li>Constructors are defined with a capitalized name to distinguish them
+    from other functions that are not <code class="inline">constructors</code>.</li>
+  <li>Constructors use the keyword <code class="inline">this</code> to set properties of
+    the object they will create. Inside the constructor, <code class="inline">this</code>
+    refers to the new object it will create.</li>
+  <li>Constructors define properties and behaviors instead of returning a
+    value as other functions might.</li>
+</ul>
+
+<h2>Using a Constructor to Create Objects</h2>
+<pre><code>function Bird() {
+  this.name = "Albert";
+  this.color  = "blue";
+  this.numLegs = 2;
+  // "this" inside the constructor always refers to the object being created
+}
+
+let blueBird = new Bird();</code></pre>
+<p>Notice that the <code class="inline">new</code> operator is used when calling a
+  constructor. This tells JavaScript to create a new instance of <code class="inline">Bird</code>
+  called <code class="inline">blueBird</code>. Without the <code class="inline">new</code> operator, <code class="inline">this</code>
+  inside the constructor would not point to the newly created object, giving
+  unexpected results.
+  Now <code class="inline">blueBird</code> has all the properties defined inside the <code class="inline">Bird</code>
+  constructor:</p>
+  <pre><code>blueBird.name; // => Albert
+blueBird.color; // => blue
+blueBird.numLegs; // => 2</code></pre>
+
+<p>Just like any other object, its properties can be accessed and modified:</p>
+<pre><code>blueBird.name = 'Elvira';
+blueBird.name; // => Elvira</code></pre>
+
+<h2>Extending constructors to receive arguments</h2>
+<p>Suppose you were writing a program to keep track of hundreds or even
+  thousands of different dogs in a kennel. It would take a lot of time to
+  create all the dogs, then change the properties to different values for
+  every one. To more easily create different <code class="inline">Dog</code> objects, you can design
+your Dog constructor to accept parameters and pass in the values as arguments to
+define each unique dog into the <code class="inline">Dog</code>
+    constructor:
+    <code class="inline">let terrier = new Dog("Molly", "Brown");</code>
+    This gives a new instance of <code class="inline">Dog</code> with name and color
+    properties set to Molly and brown, respectively. The <code class="inline">numLegs</code>
+    property is still set to 4.
+    The <code class="inline">terrier</code>
+    has these properties:</p>
+
+<pre><code>function Dog(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 4;
+}
+  
+let terrier = new Dog("Molly", "Brown");</code></pre>
+
+
+<h2>Verifying an Object's Constructor with instanceof</h2>
+
+<p>Anytime a constructor function creates a new object, that object is said
+  to be an <dfn>instance</dfn> of its constructor. JavaScript gives a
+  convenient way to verify this with the <code class="inline">instanceof</code> operator.
+  <code class="inline">instanceof</code> allows you to compare an object to a constructor,
+  returning <code class="inline">true</code> or <code class="inline">false</code> based on whether or
+  not that object was created with the constructor. If an object is created without using a constructor, instanceof will verify that it is not an instance of that constructor.</p>
+
+<pre><code>let Bird = function(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 2;
+}
+
+let crow = new Bird("Alexis", "black");
+
+crow instanceof Bird; // => true</code></pre>
+
+
+    </article>
+    </section>
+  
+
+    <section class="main-section" id="js_prototypes">
+      <header>Properties and Protoypes</header>
+      <article>
+        <h2>Understanding own properties</h2>
+        <p>In the following example, the Bird constructor defines two
+        properties: name and numLegs:</p>
+        
+        <pre><code>function Bird(name) {
+          this.name  = name;
+          this.numLegs = 2;
+        }
+        
+        let duck = new Bird("Donald");
+        let canary = new Bird("Tweety");</code></pre>
+
+        <p><code class="inline">name</code> and <code class="inline">numLegs</code> are called <code class="inline">own</code>
+          properties, because they are defined directly on the instance object. That
+          means that <code class="inline">duck</code> and <code class="inline">canary</code> each has its own
+          separate copy of these properties.
+          In fact every instance of <code class="inline">Bird</code> will have its own copy of
+          these properties.
+          The following code adds all of the <code class="inline">own</code>
+          propertiesc of <code class="inline" >duck</code>
+          to the array <code class="inline">ownProps</code>:</p>
+<pre><code>let ownProps = [];
+
+  for (let property in duck) {
+    if(duck.hasOwnProperty(property)) {
+      ownProps.push(property);
+    }
+  }
+  
+  console.log(ownProps); // prints [ "name", "numLegs" ]</code></pre>
+
+
+  <h2>Using Prototype Properties to Reduce Duplicate Code</h2>
+
+  <p>Since <cod class="inline">numLegs</code> will probably have the same value for all
+    instances of <code class="inline">Bird</code>, you essentially have a duplicated
+    variable <code class="inline">numLegs</code> inside each <code class="inline">Bird</code> instance.</p>
+  <p>This may not be an issue when there are only two instances, but imagine
+    if there are millions of instances. That would be a lot of duplicated
+    variables.</p>
+  <p>A better way is to use <code class="inline">Bird’s</code> <code class="inline">prototype</code>.
+    Properties in the <code class="inline">prototype</code> are shared among ALL instances
+  of <code class="inline">Bird</code>. Here's how to add <code
+  class="inline">numLegs</code> to the <code class="inline">Bird prototype</code>:</p>
+
+<pre><code>Bird.prototype.numLegs = 2;</code></pre>
+
+<p>Now all instances of <code class="inline">Bird</code> have the <code class="inline">numLegs</code>
+  property.</p>
+
+<pre><code>console.log(duck.numLegs);  // prints 2
+console.log(canary.numLegs);  // prints 2</code></pre>
+
+<p>Since all instances automatically have the properties on the <code class="inline">prototype</code>,
+  think of a <code class="inline">prototype</code> as a "recipe" for creating objects.
+Note that the <code class="inline">prototype</code> for <code
+class="inline">duck</code> and <code class="inline">ccanary</code>
+  is part of the <code class="inline">Bird</code> constructor as <code class="inline">Bird.prototype</code>.
+  Nearly every object in JavaScript has a <code class="inline">prototype</code> property
+  which is part of the constructor function that created it.</p>
+
+<h2>Iterating Over All Properties</h2>
+
+<p>You have now seen two kinds of properties: <code class="inline">own</code> properties
+  and <code class="inline">prototype</code> properties. <code class="inline">Own</code> properties are
+  defined directly on the object instance itself. And <code class="inline">prototype</code>
+  properties are defined on the <code class="inline">prototype</code>.</p>
+
+  <p>Here is how you add all of the <code class="inline">own</code> properties of
+    <code class="inline">beagle</code> to the array <code class="inline">ownProps</code>. Add all of the <code class="inline">prototype</code>
+    properties of <code class="inline">Dog</code> to the array <code
+    class="inline">prototypeProps</code>.</p>
+    
+<pre><code>function Dog(name) {
+  this.name = name;
+}
+
+Dog.prototype.numLegs = 4;
+
+let beagle = new Dog("Snoopy");
+
+let ownProps = [];
+let prototypeProps = [];
+
+// Only change code below this line
+
+for (let property in beagle) {
+  if(beagle.hasOwnProperty(property)) {
+    ownProps.push(property);
+  } else {
+    prototypeProps.push(property);
+  }
+}</code></pre>
+
+
+<h2>Understanding the Constructor Property</h2>
+
+<p>There is a special <code class="inline">constructor</code> property located on the
+  object instances <code class="inline">duck</code> and <code class="inline">beagle</code> that were
+  created above:</p>
+
+<pre><code>let duck = new Bird();
+  let beagle = new Dog();
+  
+  console.log(duck.constructor === Bird);  //prints true
+  console.log(beagle.constructor === Dog);  //prints true</code></pre>
+
+  <p>Note that the <code class="inline">constructor</code> property is a reference to the
+    constructor function that created the instance.
+    The advantage of the <code class="inline">constructor</code> property is that it's
+    possible to check for this property to find out what kind of object it is.
+    Here's an example of how this could be used:</p>
+
+<pre><code>function Dog(name) {
+  this.name = name;
+}
+
+
+function joinDogFraternity(candidate) {
+  if (candidate.constructor === Dog) {
+    return true; 
+  } else {
+    return false;
+  }
+}</code></pre>
+
+<h2>Changing the prototype to a new object</h2>
+
+<p>Up until now we have been adding properties to the <code class="inline">prototype</code>
+  individually:</p>
+
+<pre><code>Bird.prototype.numLegs = 2;</code></pre>
+
+<p>This becomes tedious after more than a few properties:</p>
+
+<pre><code>Bird.prototype.eat = function() {
+  console.log("nom nom nom");
+}
+
+Bird.prototype.describe = function() {
+  console.log("My name is " + this.name);
+}</code></pre>
+
+<p>A more efficient way is to set the <code class="inline">prototype</code> to a new
+  object that already contains the properties. This way, the properties are
+  added all at once:</p>
+
+<pre><code>Bird.prototype = {
+  numLegs: 2, 
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};</code></pre>
+
+<h2>Setting the Constructor Property when Changing the Prototype</h2>
+
+<p>Whenever you manually setting the prototype to a new object. It erases the
+  <code class="inline">constructor</code> property. To fix this, whenever a
+  prototype is manually set to a new object, remember to define the <code class="inline">constructor</code>
+  property:</p>
+
+<pre><code>Bird.prototype = {
+  constructor: Bird, // define the constructor property
+  numLegs: 2,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name); 
+  }
+};</code></pre>
+
+<h2>Understanding where an Object’s Prototype Comes From</h2>
+
+<p>Just like people inherit genes from their parents, an object
+  inherits its <code class="inline">prototype</code> directly from the constructor
+  function that created it. For example, here the <code class="inline">Bird</code>
+  constructor creates the <code class="inline">duck</code> object:</p>
+
+  <pre><code>function Bird(name) {
+    this.name = name;
+  }
+  
+  let duck = new Bird("Donald");</code></pre>
+
+  <p><code class="inline">duck</code> inherits its <code class="inline">prototype</code> from the <code class="inline">Bird</code>
+    constructor function. You can show this relationship with the <code class="inline">isPrototypeOf</code>
+    method:</p>
+
+    <pre><code>Bird.prototype.isPrototypeOf(duck);
+// returns true</code></pre>
+
+      </article>
+    </section>
 
 
 </main>
